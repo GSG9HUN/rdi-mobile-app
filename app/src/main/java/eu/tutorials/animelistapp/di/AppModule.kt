@@ -1,4 +1,4 @@
-package eu.tutorials.animelistapp.utils
+package eu.tutorials.animelistapp.di
 
 import android.content.Context
 import androidx.room.Room

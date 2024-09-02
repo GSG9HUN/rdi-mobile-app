@@ -1,4 +1,4 @@
-package eu.tutorials.animelistapp.utils.enums.Anime
+package eu.tutorials.animelistapp.constants.enums.Anime
 
 /**
  * G - All Ages
@@ -15,6 +15,7 @@ package eu.tutorials.animelistapp.utils.enums.Anime
  */
 enum class AnimeAgeRating(private val ageFilter: String) {
 
+    EMPTY(""),
     G("g"),
     PG("pg"),
     PG13("pg13"),

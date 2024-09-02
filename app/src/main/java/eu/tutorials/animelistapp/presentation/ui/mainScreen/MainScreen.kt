@@ -1,10 +1,14 @@
 package eu.tutorials.animelistapp.presentation.ui.mainScreen
 
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,22 +22,29 @@ import eu.tutorials.animelistapp.presentation.ui.mainScreen.composables.AnimeLis
 import eu.tutorials.animelistapp.presentation.ui.mainScreen.composables.MangaList
 import eu.tutorials.animelistapp.presentation.viewmodel.anime.AnimeViewModel
 import eu.tutorials.animelistapp.presentation.viewmodel.manga.MangaViewModel
-
+import eu.tutorials.animelistapp.constants.enums.Anime.AnimeAgeRating
+import eu.tutorials.animelistapp.constants.enums.Anime.AnimeType
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun MainScreen(
     controller: NavController,
-    animeViewModel: AnimeViewModel,
-    mangaViewModel: MangaViewModel
+    animeViewModel: AnimeViewModel = hiltViewModel(),
+    mangaViewModel: MangaViewModel = hiltViewModel()
 ) {
     var selectedTab by remember { mutableStateOf("Anime") }
-    val isAnimeLoading by animeViewModel.isLoading.collectAsState()
-    val isMangaLoading by mangaViewModel.isLoading.collectAsState()
+    val animeUiState by animeViewModel.uiState.collectAsState()
+    val mangaUiState by mangaViewModel.uiState.collectAsState()
+    val scrollState = rememberLazyListState()
+    val scaffoldState = rememberScaffoldState()
+    var filterText by remember { mutableStateOf("") }
+    var selectedType by remember { mutableStateOf(AnimeType.EMPTY) }
+    var selectedRating by remember { mutableStateOf(AnimeAgeRating.EMPTY) }
     if (selectedTab == "Anime") {
         animeViewModel.fetchTopAnimes()
     }
 
-    Scaffold(topBar = {
+    Scaffold(scaffoldState = scaffoldState, topBar = {
         TopNavigationBar(selectedTab) { tab ->
             selectedTab = tab
             if (tab == "Anime") {
@@ -46,13 +57,22 @@ fun MainScreen(
             }
         }
     }, bottomBar = { BottomNavigationBar(controller) }) { innerPadding ->
-
-        if (!isAnimeLoading && !isMangaLoading) {
+        if (!animeUiState.isLoading && !mangaUiState.isLoading) {
             Column(Modifier.padding(innerPadding)) {
+
                 if (selectedTab == "Anime") {
-                    AnimeList(animeViewModel.animes.collectAsState().value)
+                    val animes = animeViewModel.uiState.collectAsState().value.animes
+                    AnimeList(animes, scrollState)
+                    if (remember { derivedStateOf { scrollState.layoutInfo } }.value.visibleItemsInfo.lastOrNull()?.index == animes.size - 1) {
+
+                        animeViewModel.loadMoreAnimes()
+                    }
                 } else {
-                    MangaList(mangaViewModel.mangas.collectAsState().value)
+                    val mangas = mangaViewModel.uiState.collectAsState().value.mangas
+                    MangaList(mangas, scrollState)
+                    if (remember { derivedStateOf { scrollState.layoutInfo } }.value.visibleItemsInfo.lastOrNull()?.index == mangas.size - 1) {
+                        mangaViewModel.loadMoreMangas()
+                    }
                 }
             }
         } else {
@@ -60,8 +80,3 @@ fun MainScreen(
         }
     }
 }
-
-
-
-
-

@@ -3,14 +3,31 @@ package eu.tutorials.animelistapp.repository.remoteRepository
 import eu.tutorials.animelistapp.domain.model.Anime
 import eu.tutorials.animelistapp.domain.model.Manga
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ApiService {
-
+    /**
+     *  @param type - Type of the anime like: TV,Movie,OVA
+     *  @param filter - airing, upcoming
+     *  @param rating - It's basically the age filter.
+     *  @param sfw - Filtering out the no safe for work content. Default value true.
+     *  @param page
+     */
     @GET("top/anime")
-    suspend fun getTopAnimes(): AnimeResponse
+    suspend fun getTopAnimes(
+        @Query("type") type: String,
+        @Query("filter") filter: String,
+        @Query("rating") rating: String,
+        @Query("sfw") sfw: Boolean,
+        @Query("page") page: Int
+    ): AnimeResponse
 
     @GET("top/manga")
-    suspend fun getTopMangas(): MangaResponse
+    suspend fun getTopMangas(
+        @Query("type") type: String,
+        @Query("filter") filter: String,
+        @Query("page") page: Int
+    ): MangaResponse
 }
 
 data class AnimeResponse(

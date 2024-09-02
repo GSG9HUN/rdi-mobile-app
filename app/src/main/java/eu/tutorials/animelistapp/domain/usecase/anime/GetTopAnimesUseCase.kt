@@ -1,11 +1,19 @@
 package eu.tutorials.animelistapp.domain.usecase.anime
 
-import eu.tutorials.animelistapp.repository.remoteRepository.datasource.anime.AnimeRepository
+import eu.tutorials.animelistapp.domain.AnimeDomain
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GetTopAnimesUseCase @Inject constructor(
-    private val animeRepository: AnimeRepository
+    private val animeDomain: AnimeDomain
 ) {
-    suspend operator fun invoke() = animeRepository.getTopAnimes()
+    operator fun invoke(
+        type: String,
+        filter: String,
+        rating: String,
+        sfw: Boolean,
+        page: Int
+    ) = animeDomain.getTopAnime(type,filter,rating,sfw,page)
 
 }

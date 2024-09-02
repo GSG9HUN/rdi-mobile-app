@@ -1,8 +1,8 @@
-package eu.tutorials.animelistapp.utils.enums.Manga
+package eu.tutorials.animelistapp.constants.enums.Anime
 
-enum class MangaFilter(private val filter:String) {
-
-    PUBLISHING("publishing"),
+enum class AnimeFilter(private val filter:String) {
+    EMPTY(""),
+    AIRING("airing"),
     UPCOMING("upcoming"),
     BY_POPULARITY("bypopularity"),
     FAVORITE("favorite");

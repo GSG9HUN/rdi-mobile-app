@@ -11,5 +11,4 @@ data class Anime(
     val episodes: Int
 ) {
     fun toAnimeEntity() = AnimeEntity(id, title, description, imageUrl, rating, episodes)
-
 }

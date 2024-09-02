@@ -1,10 +1,16 @@
 package eu.tutorials.animelistapp.domain.usecase.manga
 
-import eu.tutorials.animelistapp.repository.remoteRepository.datasource.manga.MangaRepository
+import eu.tutorials.animelistapp.domain.MangaDomain
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GetTopMangasUseCase @Inject constructor(
-    private val mangaRepository: MangaRepository
+    private val mangaDomain: MangaDomain
 ) {
-    suspend operator fun invoke() = mangaRepository.getTopMangas()
+    operator fun invoke(
+        type: String,
+        filter: String,
+        page: Int
+    ) = mangaDomain.getTopMangas(type, filter, page)
 }

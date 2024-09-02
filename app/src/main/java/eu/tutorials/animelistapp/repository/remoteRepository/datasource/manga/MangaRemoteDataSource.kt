@@ -6,6 +6,7 @@ import javax.inject.Inject
 class MangaRemoteDataSource @Inject constructor(
     private val apiService: ApiService
 ) {
-    suspend fun getTopMangas() = apiService.getTopMangas().data
+    suspend fun getTopMangas(type: String, filter: String, page: Int) =
+        apiService.getTopMangas(type, filter, page).data
 
 }

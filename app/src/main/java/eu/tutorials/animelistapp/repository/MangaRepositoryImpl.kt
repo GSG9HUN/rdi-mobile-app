@@ -11,10 +11,10 @@ class MangaRepositoryImpl @Inject constructor(
     private val mangaLocalDataSource: MangaLocalDataSource
 ) : MangaRepository {
 
-    override suspend fun getTopMangas(): List<Manga> {
-        //val remoteMangas = mangaRemoteDataSource.getTopMangas().map { it.toManga() }
-        val localeMangas = mangaLocalDataSource.getAllMangas().map { it.toManga() }
-        //mangaLocalDataSource.saveMangas(remoteMangas.map { it.toMangaEntity() })
-        return localeMangas
+    override suspend fun getTopMangas(type: String, filter: String, page: Int): List<Manga> {
+        val remoteMangas =
+            mangaRemoteDataSource.getTopMangas(type, filter, page).map { it.toManga() }
+        mangaLocalDataSource.saveMangas(remoteMangas.map { it.toMangaEntity() })
+        return remoteMangas
     }
 }

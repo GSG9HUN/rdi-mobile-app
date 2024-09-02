@@ -11,8 +11,15 @@ class AnimeRepositoryImpl @Inject constructor(
     private val animeLocalDataSource: AnimeLocalDataSource
 ) : AnimeRepository {
 
-    override suspend fun getTopAnimes(): List<Anime> {
-        val remoteAnimes = animeRemoteDataSource.getTopAnimes().map { it.toAnime() }
+    override suspend fun getTopAnimes(
+        type: String,
+        filter: String,
+        rating: String,
+        sfw: Boolean,
+        page: Int
+    ): List<Anime> {
+        val remoteAnimes =
+            animeRemoteDataSource.getTopAnimes(type, filter, rating, sfw, page).map { it.toAnime() }
         animeLocalDataSource.saveAnimes(remoteAnimes.map { it.toAnimeEntity() })
         return remoteAnimes
     }

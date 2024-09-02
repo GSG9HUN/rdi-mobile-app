@@ -1,6 +1,7 @@
-package eu.tutorials.animelistapp.utils.enums.Anime
+package eu.tutorials.animelistapp.constants.enums.Anime
 
 enum class AnimeType(private val type: String) {
+    EMPTY(""),
     TV("tv"),
     MOVIE("movie"),
     OVA("ova"),

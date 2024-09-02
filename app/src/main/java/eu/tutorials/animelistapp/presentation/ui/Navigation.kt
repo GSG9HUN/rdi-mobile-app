@@ -15,8 +15,6 @@ import eu.tutorials.animelistapp.presentation.viewmodel.manga.MangaViewModel
 @Composable
 fun Navigation(
     navController: NavController,
-    animeViewModel: AnimeViewModel,
-    mangaViewModel: MangaViewModel
 ) {
     NavHost(
         navController = navController as NavHostController,
@@ -25,9 +23,7 @@ fun Navigation(
     ) {
         composable(Screen.BottomScreen.Home.bRoute) {
             MainScreen(
-                controller = navController,
-                animeViewModel = animeViewModel,
-                mangaViewModel = mangaViewModel
+                controller = navController
             )
         }
         composable(Screen.Details.route) {
