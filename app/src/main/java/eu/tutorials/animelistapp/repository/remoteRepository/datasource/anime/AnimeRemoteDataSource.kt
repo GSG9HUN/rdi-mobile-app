@@ -14,4 +14,10 @@ class AnimeRemoteDataSource @Inject constructor(
         page: Int
     ) = apiService.getTopAnimes(type, filter, rating, sfw, page).data
 
+    suspend fun getAnimeById(id: Int) = apiService.getAnimeById(id).data
+
+    suspend fun getAnimeCharacters(animeId: Int) = apiService.getAnimeCharacters(animeId).data
+
+    suspend fun getAnimeRecommendations(animeId: Int) =
+        apiService.getAnimeRecommendations(animeId).data
 }

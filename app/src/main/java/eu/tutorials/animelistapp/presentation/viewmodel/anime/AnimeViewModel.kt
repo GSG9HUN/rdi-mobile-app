@@ -1,5 +1,6 @@
 package eu.tutorials.animelistapp.presentation.viewmodel.anime
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -79,6 +80,7 @@ class AnimeViewModel @Inject constructor(
                     if (concatResult) {
                         animes = _uiState.value.animes
                     }
+                    Log.e("success", animes.size.toString())
                     _uiState.update { state ->
                         state.copy(
                             animes = animes + data, isLoading = false
@@ -87,6 +89,7 @@ class AnimeViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
+                    Log.e("error", result.error?.message.toString())
                     _uiState.update { state -> state.copy(isLoading = false) }
                 }
             }

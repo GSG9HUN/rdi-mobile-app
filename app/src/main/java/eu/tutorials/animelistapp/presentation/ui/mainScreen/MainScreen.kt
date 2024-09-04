@@ -1,6 +1,5 @@
 package eu.tutorials.animelistapp.presentation.ui.mainScreen
 
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -56,20 +55,28 @@ fun MainScreen(
                 mangaViewModel.fetchTopMangas()
             }
         }
-    }, bottomBar = { BottomNavigationBar(controller) }) { innerPadding ->
+    },
+        bottomBar = { BottomNavigationBar(controller) }) { innerPadding ->
         if (!animeUiState.isLoading && !mangaUiState.isLoading) {
             Column(Modifier.padding(innerPadding)) {
 
                 if (selectedTab == "Anime") {
                     val animes = animeViewModel.uiState.collectAsState().value.animes
-                    AnimeList(animes, scrollState)
+                    AnimeList(
+                        animeList = animes,
+                        scrollState = scrollState,
+                        controller = controller
+                    )
                     if (remember { derivedStateOf { scrollState.layoutInfo } }.value.visibleItemsInfo.lastOrNull()?.index == animes.size - 1) {
-
                         animeViewModel.loadMoreAnimes()
                     }
                 } else {
                     val mangas = mangaViewModel.uiState.collectAsState().value.mangas
-                    MangaList(mangas, scrollState)
+                    MangaList(
+                        mangaList = mangas,
+                        scrollState = scrollState,
+                        controller = controller
+                    )
                     if (remember { derivedStateOf { scrollState.layoutInfo } }.value.visibleItemsInfo.lastOrNull()?.index == mangas.size - 1) {
                         mangaViewModel.loadMoreMangas()
                     }

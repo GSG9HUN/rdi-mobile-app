@@ -54,11 +54,16 @@ object AppModule {
             context,
             AppDatabase::class.java,
             "anime_manga_db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
     fun provideAnimeDao(database: AppDatabase) = database.animeDao()
+
+    @Provides
+    fun provideAnimeDetailsDao(database: AppDatabase) = database.animeDetailsDao()
 
     @Provides
     fun provideMangaDao(database: AppDatabase) = database.mangaDao()

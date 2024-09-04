@@ -15,16 +15,32 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import eu.tutorials.animelistapp.presentation.ui.Screen
 
 @Composable
 fun ContentCard(
-    title: String, description: String, imageUrl: String, rating: Double, episodes: Int? = null
+    controller: NavController,
+    id: String,
+    title: String,
+    description: String,
+    imageUrl: String,
+    rating: Double,
+    episodes: Int? = null
 ) {
     Card(
         modifier = Modifier
             .padding(8.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        onClick = {
+            if (episodes == null) {
+                controller.navigate(Screen.MangaDetails.route + "/${id}")
+            } else {
+                controller.navigate(Screen.AnimeDetails.route + "/${id}")
+            }
+
+        }
     ) {
         Row {
             Image(

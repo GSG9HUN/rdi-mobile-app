@@ -1,8 +1,12 @@
 package eu.tutorials.animelistapp.repository.remoteRepository
 
-import eu.tutorials.animelistapp.domain.model.Anime
-import eu.tutorials.animelistapp.domain.model.Manga
+import eu.tutorials.animelistapp.repository.remoteRepository.model.animeCharacters.AnimeCharactersResponse
+import eu.tutorials.animelistapp.repository.remoteRepository.model.animeDetails.AnimeDetailsResponse
+import eu.tutorials.animelistapp.repository.remoteRepository.model.anime.AnimeResponse
+import eu.tutorials.animelistapp.repository.remoteRepository.model.animeRecommendations.AnimeRecommendationsResponse
+import eu.tutorials.animelistapp.repository.remoteRepository.model.manga.MangaResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -28,55 +32,13 @@ interface ApiService {
         @Query("filter") filter: String,
         @Query("page") page: Int
     ): MangaResponse
+
+    @GET("anime/{id}")
+    suspend fun getAnimeById(@Path("id") id: Int): AnimeDetailsResponse
+
+    @GET("anime/{animeId}/characters")
+    suspend fun getAnimeCharacters(@Path("animeId") animeId: Int): AnimeCharactersResponse
+
+    @GET("anime/{animeId}/recommendations")
+    suspend fun getAnimeRecommendations(@Path("animeId") animeId: Int): AnimeRecommendationsResponse
 }
-
-data class AnimeResponse(
-    val data: List<AnimeDto>
-)
-
-data class MangaResponse(
-    val data: List<MangaDto>
-)
-
-data class AnimeDto(
-    val mal_id: String,
-    val title: String,
-    val synopsis: String,
-    val images: ImagesDto,
-    val score: Double,
-    val episodes: Int
-) {
-    fun toAnime() = Anime(
-        id = mal_id.toInt(),
-        title = title,
-        description = synopsis,
-        imageUrl = images.jpg.image_url,
-        rating = score,
-        episodes = episodes
-    )
-}
-
-data class MangaDto(
-    val mal_id: String,
-    val title: String,
-    val synopsis: String,
-    val images: ImagesDto,
-    val score: Double,
-    //val episodes: Int
-) {
-    fun toManga() = Manga(
-        id = mal_id.toLong(),
-        title = title,
-        description = synopsis,
-        imageUrl = images.jpg.image_url,
-        rating = score
-    )
-}
-
-data class ImagesDto(
-    val jpg: ImageUrlDto
-)
-
-data class ImageUrlDto(
-    val image_url: String
-)

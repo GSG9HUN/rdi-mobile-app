@@ -6,7 +6,8 @@ sealed class Screen(val title: String, val route: String) {
         object MyLists : BottomScreen("My Lists", "my_lists")
     }
     //object Home : Screen("Home", "home")
-    object Details : Screen("Details", "details")
+    object MangaDetails : Screen("Details", "mangaDetails/")
+    object AnimeDetails : Screen("Details", "animeDetails")
     object Search : Screen("Search", "search")
 }
 

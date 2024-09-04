@@ -6,7 +6,7 @@ import eu.tutorials.animelistapp.domain.model.Manga
 
 @Entity(tableName = "mangas")
 data class MangaEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
+    @PrimaryKey() val id: Int,
     val title: String,
     val description: String,
     val imageUrl: String,
