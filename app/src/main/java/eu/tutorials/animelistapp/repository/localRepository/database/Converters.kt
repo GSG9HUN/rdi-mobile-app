@@ -8,6 +8,9 @@ import eu.tutorials.animelistapp.domain.model.animeDetails.Genre
 import eu.tutorials.animelistapp.domain.model.animeDetails.Producer
 import eu.tutorials.animelistapp.domain.model.animeDetails.Studio
 import eu.tutorials.animelistapp.domain.model.animeDetails.Theme
+import eu.tutorials.animelistapp.domain.model.animeCharacters.Character
+import eu.tutorials.animelistapp.domain.model.animeCharacters.VoiceActor
+import eu.tutorials.animelistapp.domain.model.animeRecommendations.Recommendation
 
 class Converters {
 
@@ -66,5 +69,40 @@ class Converters {
     @TypeConverter
     fun fromThemeListToJson(list: List<Theme>): String {
         return gson.toJson(list)
+    }
+
+
+    @TypeConverter
+    fun fromJsonToCharacter(value: String): Character {
+        val type = object : TypeToken<Character>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromCharacterToJson(character: Character): String {
+        return gson.toJson(character)
+    }
+
+    @TypeConverter
+    fun fromJsonToVoiceActorsList(value: String): List<VoiceActor> {
+        val type = object : TypeToken<List<VoiceActor>>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromVoiceActorListToJson(list: List<VoiceActor>): String {
+        return gson.toJson(list)
+    }
+
+
+    @TypeConverter
+    fun fromJsonToRecommendation(value: String): Recommendation {
+        val type = object : TypeToken<Recommendation>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromRecommendationToJson(recommendation: Recommendation): String {
+        return gson.toJson(recommendation)
     }
 }

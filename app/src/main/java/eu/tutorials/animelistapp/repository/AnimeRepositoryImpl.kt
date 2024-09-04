@@ -36,14 +36,15 @@ class AnimeRepositoryImpl @Inject constructor(
     override suspend fun getCharacters(animeId: Int): List<AnimeCharacter> {
         val remoteAnimeCharacters =
             animeRemoteDataSource.getAnimeCharacters(animeId).map { it.toAnimeCharacter() }
-        //remoteAnimeCharacters.map { }
+        animeLocalDataSource.saveAnimeCharacters(
+            remoteAnimeCharacters.map { it.toAnimeCharacterEntity(animeId) })
         return remoteAnimeCharacters
     }
 
     override suspend fun getAnimeRecommendations(animeId: Int): List<AnimeRecommendation> {
         val remoteAnimeRecommendations = animeRemoteDataSource.getAnimeRecommendations(animeId)
             .map { it.toAnimeRecommendation() }
-
+        animeLocalDataSource.saveAnimeRecommendations(remoteAnimeRecommendations.map { it.recommendation.toAnimeRecommendationEntity(animeId) })
         return remoteAnimeRecommendations
     }
 

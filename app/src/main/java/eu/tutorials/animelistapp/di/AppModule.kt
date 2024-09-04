@@ -63,6 +63,12 @@ object AppModule {
     fun provideAnimeDao(database: AppDatabase) = database.animeDao()
 
     @Provides
+    fun provideAnimeCharacterDao(database: AppDatabase) = database.animeCharacterDao()
+
+    @Provides
+    fun provideAnimeRecommendationDao(database: AppDatabase) = database.animeRecommendationDao()
+
+    @Provides
     fun provideAnimeDetailsDao(database: AppDatabase) = database.animeDetailsDao()
 
     @Provides
