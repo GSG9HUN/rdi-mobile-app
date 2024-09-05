@@ -9,4 +9,10 @@ class MangaRemoteDataSource @Inject constructor(
     suspend fun getTopMangas(type: String, filter: String, page: Int) =
         apiService.getTopMangas(type, filter, page).data
 
+    suspend fun getMangaById(id: Int) = apiService.getMangaById(id).data
+
+    suspend fun getMangaCharacters(mangaId: Int) = apiService.getMangaCharacters(mangaId).data
+
+    suspend fun getMangaRecommendations(mangaId: Int) =
+        apiService.getMangaRecommendations(mangaId).data
 }

@@ -2,11 +2,11 @@ package eu.tutorials.animelistapp.repository.localRepository.datasource.anime
 
 import eu.tutorials.animelistapp.repository.localRepository.database.anime.AnimeDao
 import eu.tutorials.animelistapp.repository.localRepository.database.anime.AnimeEntity
-import eu.tutorials.animelistapp.repository.localRepository.database.animeCharacters.AnimeCharacterDao
-import eu.tutorials.animelistapp.repository.localRepository.database.animeCharacters.AnimeCharacterEntity
-import eu.tutorials.animelistapp.repository.localRepository.database.animeDetails.AnimeDetailsEntity
-import eu.tutorials.animelistapp.repository.localRepository.database.animeRecommendations.AnimeRecommendationDao
-import eu.tutorials.animelistapp.repository.localRepository.database.animeRecommendations.AnimeRecommendationEntity
+import eu.tutorials.animelistapp.repository.localRepository.database.details.animeDetails.animeCharacters.AnimeCharacterDao
+import eu.tutorials.animelistapp.repository.localRepository.database.details.animeDetails.animeCharacters.AnimeCharacterEntity
+import eu.tutorials.animelistapp.repository.localRepository.database.details.animeDetails.AnimeDetailsEntity
+import eu.tutorials.animelistapp.repository.localRepository.database.details.animeDetails.animeRecommendations.AnimeRecommendationDao
+import eu.tutorials.animelistapp.repository.localRepository.database.details.animeDetails.animeRecommendations.AnimeRecommendationEntity
 import jakarta.inject.Inject
 
 class AnimeLocalDataSource @Inject constructor(

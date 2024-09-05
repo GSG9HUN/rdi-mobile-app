@@ -33,7 +33,7 @@ fun Navigation(
         }
         composable(Screen.MangaDetails.route + "/{id}") { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")!!
-            MangaDetailsScreen(id = id)
+            MangaDetailsScreen(id = id.toInt(), controller = navController)
         }
         composable(Screen.Search.route) {
             Text(text = "Search screen")

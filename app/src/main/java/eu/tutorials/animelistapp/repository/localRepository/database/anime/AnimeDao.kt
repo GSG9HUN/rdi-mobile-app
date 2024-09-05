@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import eu.tutorials.animelistapp.repository.localRepository.database.animeDetails.AnimeDetailsEntity
+import eu.tutorials.animelistapp.repository.localRepository.database.details.animeDetails.AnimeDetailsEntity
 
 @Dao
 abstract class AnimeDao {

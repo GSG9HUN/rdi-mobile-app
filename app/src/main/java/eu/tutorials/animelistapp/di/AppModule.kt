@@ -75,6 +75,15 @@ object AppModule {
     fun provideMangaDao(database: AppDatabase) = database.mangaDao()
 
     @Provides
+    fun provideMangaCharacterDao(database: AppDatabase) = database.mangaCharacterDao()
+
+    @Provides
+    fun provideMangaRecommendationDao(database: AppDatabase) = database.mangaRecommendationDao()
+
+    @Provides
+    fun provideMangaDetailsDao(database: AppDatabase) = database.mangaDetailsDao()
+
+    @Provides
     @Singleton
     fun provideApiService(): ApiService {
         return Retrofit.Builder()

@@ -21,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import eu.tutorials.animelistapp.domain.model.animeDetails.AnimeDetails
+import eu.tutorials.animelistapp.domain.model.details.animeDetails.AnimeDetails
 
 @Composable
 fun AnimeHeader(animeDetails: AnimeDetails) {

@@ -18,7 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import eu.tutorials.animelistapp.domain.model.animeCharacters.VoiceActor
+import eu.tutorials.animelistapp.domain.model.details.animeDetails.animeCharacters.VoiceActor
 
 @Composable
 fun VoiceActorColumn(modifier: Modifier,voiceActor: VoiceActor) {

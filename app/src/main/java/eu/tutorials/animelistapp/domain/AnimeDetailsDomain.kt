@@ -1,9 +1,9 @@
 package eu.tutorials.animelistapp.domain
 
 import eu.tutorials.animelistapp.constants.Resource
-import eu.tutorials.animelistapp.domain.model.animeCharacters.AnimeCharacter
-import eu.tutorials.animelistapp.domain.model.animeDetails.AnimeDetails
-import eu.tutorials.animelistapp.domain.model.animeRecommendations.AnimeRecommendation
+import eu.tutorials.animelistapp.domain.model.details.animeDetails.animeCharacters.AnimeCharacter
+import eu.tutorials.animelistapp.domain.model.details.animeDetails.AnimeDetails
+import eu.tutorials.animelistapp.domain.model.details.animeDetails.animeRecommendations.AnimeRecommendation
 import eu.tutorials.animelistapp.repository.AnimeRepositoryImpl
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -43,7 +43,7 @@ class AnimeDetailsDomain @Inject constructor(private val animeRepository: AnimeR
         return flow {
             emit(Resource.Loading())
             try {
-                val animeRecommendations = animeRepository.getAnimeRecommendations(animeId)
+                val animeRecommendations = animeRepository.getRecommendations(animeId)
                 emit(Resource.Success(animeRecommendations))
             } catch (e: Exception) {
                 emit(Resource.Error(e))

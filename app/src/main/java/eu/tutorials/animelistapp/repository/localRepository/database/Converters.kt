@@ -3,14 +3,14 @@ package eu.tutorials.animelistapp.repository.localRepository.database
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import eu.tutorials.animelistapp.domain.model.animeDetails.Aired
-import eu.tutorials.animelistapp.domain.model.animeDetails.Genre
-import eu.tutorials.animelistapp.domain.model.animeDetails.Producer
-import eu.tutorials.animelistapp.domain.model.animeDetails.Studio
-import eu.tutorials.animelistapp.domain.model.animeDetails.Theme
-import eu.tutorials.animelistapp.domain.model.animeCharacters.Character
-import eu.tutorials.animelistapp.domain.model.animeCharacters.VoiceActor
-import eu.tutorials.animelistapp.domain.model.animeRecommendations.Recommendation
+import eu.tutorials.animelistapp.domain.model.details.animeDetails.Aired
+import eu.tutorials.animelistapp.domain.model.details.Genre
+import eu.tutorials.animelistapp.domain.model.details.animeDetails.Producer
+import eu.tutorials.animelistapp.domain.model.details.animeDetails.Studio
+import eu.tutorials.animelistapp.domain.model.details.Theme
+import eu.tutorials.animelistapp.domain.model.details.Character
+import eu.tutorials.animelistapp.domain.model.details.animeDetails.animeCharacters.VoiceActor
+import eu.tutorials.animelistapp.domain.model.details.mangaDetails.Published
 
 class Converters {
 
@@ -94,15 +94,27 @@ class Converters {
         return gson.toJson(list)
     }
 
+    /*
+        @TypeConverter
+        fun fromJsonToRecommendation(value: String): Recommendation {
+            val type = object : TypeToken<Recommendation>() {}.type
+            return gson.fromJson(value, type)
+        }
+
+        @TypeConverter
+        fun fromRecommendationToJson(recommendation: Recommendation): String {
+            return gson.toJson(recommendation)
+        }*/
 
     @TypeConverter
-    fun fromJsonToRecommendation(value: String): Recommendation {
-        val type = object : TypeToken<Recommendation>() {}.type
+    fun fromJsonToPublished(value: String): Published {
+        val type = object : TypeToken<Published>() {}.type
         return gson.fromJson(value, type)
     }
 
     @TypeConverter
-    fun fromRecommendationToJson(recommendation: Recommendation): String {
-        return gson.toJson(recommendation)
+    fun fromPublishedToJson(published: Published): String {
+        return gson.toJson(published)
     }
+
 }

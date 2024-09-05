@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import eu.tutorials.animelistapp.domain.model.animeCharacters.Character
+import eu.tutorials.animelistapp.domain.model.details.Character
 
 @Composable
 fun CharacterColumn(modifier: Modifier, character: Character) {

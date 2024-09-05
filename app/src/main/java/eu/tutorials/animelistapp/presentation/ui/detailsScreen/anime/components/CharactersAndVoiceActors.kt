@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import eu.tutorials.animelistapp.domain.model.animeCharacters.AnimeCharacter
+import eu.tutorials.animelistapp.domain.model.details.animeDetails.animeCharacters.AnimeCharacter
 
 @Composable
 fun CharactersAndVoiceActors(animeCharacters: List<AnimeCharacter>) {

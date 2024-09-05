@@ -1,9 +1,9 @@
 package eu.tutorials.animelistapp.repository.remoteRepository.datasource.anime
 
 import eu.tutorials.animelistapp.domain.model.Anime
-import eu.tutorials.animelistapp.domain.model.animeCharacters.AnimeCharacter
-import eu.tutorials.animelistapp.domain.model.animeDetails.AnimeDetails
-import eu.tutorials.animelistapp.domain.model.animeRecommendations.AnimeRecommendation
+import eu.tutorials.animelistapp.domain.model.details.animeDetails.animeCharacters.AnimeCharacter
+import eu.tutorials.animelistapp.domain.model.details.animeDetails.AnimeDetails
+import eu.tutorials.animelistapp.domain.model.details.animeDetails.animeRecommendations.AnimeRecommendation
 
 interface AnimeRepository {
     suspend fun getTopAnimes(
@@ -18,5 +18,5 @@ interface AnimeRepository {
 
     suspend fun getCharacters(animeId: Int): List<AnimeCharacter>
 
-    suspend fun getAnimeRecommendations(animeId: Int): List<AnimeRecommendation>
+    suspend fun getRecommendations(animeId: Int): List<AnimeRecommendation>
 }

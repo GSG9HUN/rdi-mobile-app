@@ -1,9 +1,12 @@
 package eu.tutorials.animelistapp.repository.remoteRepository
 
-import eu.tutorials.animelistapp.repository.remoteRepository.model.animeCharacters.AnimeCharactersResponse
-import eu.tutorials.animelistapp.repository.remoteRepository.model.animeDetails.AnimeDetailsResponse
+import eu.tutorials.animelistapp.repository.remoteRepository.model.details.animeDetails.animeCharacters.AnimeCharactersResponse
+import eu.tutorials.animelistapp.repository.remoteRepository.model.details.animeDetails.AnimeDetailsResponse
 import eu.tutorials.animelistapp.repository.remoteRepository.model.anime.AnimeResponse
-import eu.tutorials.animelistapp.repository.remoteRepository.model.animeRecommendations.AnimeRecommendationsResponse
+import eu.tutorials.animelistapp.repository.remoteRepository.model.details.animeDetails.animeRecommendations.AnimeRecommendationsResponse
+import eu.tutorials.animelistapp.repository.remoteRepository.model.details.mangaDetails.MangaDetailsResponse
+import eu.tutorials.animelistapp.repository.remoteRepository.model.details.mangaDetails.mangaCharacters.MangaCharactersResponse
+import eu.tutorials.animelistapp.repository.remoteRepository.model.details.mangaDetails.mangaRecommendations.MangaRecommendationsResponse
 import eu.tutorials.animelistapp.repository.remoteRepository.model.manga.MangaResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -41,4 +44,14 @@ interface ApiService {
 
     @GET("anime/{animeId}/recommendations")
     suspend fun getAnimeRecommendations(@Path("animeId") animeId: Int): AnimeRecommendationsResponse
+
+
+    @GET("manga/{id}")
+    suspend fun getMangaById(@Path("id") id: Int): MangaDetailsResponse
+
+    @GET("manga/{mangaId}/characters")
+    suspend fun getMangaCharacters(@Path("mangaId") mangaId: Int): MangaCharactersResponse
+
+    @GET("manga/{mangaId}/recommendations")
+    suspend fun getMangaRecommendations(@Path("mangaId") mangaId: Int): MangaRecommendationsResponse
 }
