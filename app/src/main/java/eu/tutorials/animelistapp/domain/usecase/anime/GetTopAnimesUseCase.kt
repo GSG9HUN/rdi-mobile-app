@@ -14,6 +14,6 @@ class GetTopAnimesUseCase @Inject constructor(
         rating: String,
         sfw: Boolean,
         page: Int
-    ) = animeDomain.getTopAnime(type,filter,rating,sfw,page)
+    ) = animeDomain.getTopAnime(type, filter, rating, sfw, page)
 
 }

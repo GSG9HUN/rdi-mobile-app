@@ -1,4 +1,4 @@
-package eu.tutorials.animelistapp.presentation.viewmodel.details.animeDetails
+package eu.tutorials.animelistapp.presentation.ui.detailsScreen.anime
 
 import eu.tutorials.animelistapp.domain.model.details.animeDetails.animeCharacters.AnimeCharacter
 import eu.tutorials.animelistapp.domain.model.details.animeDetails.AnimeDetails
@@ -9,4 +9,5 @@ data class AnimeDetailsViewModelState(
     val animeCharacters: List<AnimeCharacter>?,
     val animeRecommendations: List<AnimeRecommendation>?,
     val isLoading: Boolean = false,
+    val error: String?
 )

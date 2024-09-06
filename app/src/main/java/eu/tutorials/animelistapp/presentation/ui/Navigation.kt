@@ -27,13 +27,11 @@ fun Navigation(
             )
         }
         composable(Screen.AnimeDetails.route + "/{id}") { backStackEntry ->
-            val id = backStackEntry.arguments?.getString("id")!!
-            AnimeDetailsScreen(id = id.toInt(), controller = navController)
+            AnimeDetailsScreen(controller = navController)
 
         }
         composable(Screen.MangaDetails.route + "/{id}") { backStackEntry ->
-            val id = backStackEntry.arguments?.getString("id")!!
-            MangaDetailsScreen(id = id.toInt(), controller = navController)
+            MangaDetailsScreen(controller = navController)
         }
         composable(Screen.Search.route) {
             Text(text = "Search screen")

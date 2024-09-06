@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun Description(synopsis: String) {
+    Text(text = "Synopsis: ")
     Text(
         text = synopsis,
         style = MaterialTheme.typography.bodyMedium,

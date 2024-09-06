@@ -1,4 +1,4 @@
-package eu.tutorials.animelistapp.presentation.ui.detailsScreen.anime.components
+package eu.tutorials.animelistapp.presentation.ui.detailsScreen.components
 
 
 import androidx.compose.foundation.Image

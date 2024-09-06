@@ -20,15 +20,24 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import eu.tutorials.animelistapp.domain.model.details.Recommendation
+import eu.tutorials.animelistapp.presentation.ui.Screen
 
 @Composable
-fun RecommendationCard(animeRecommendation: Recommendation) {
+fun RecommendationCard(recommendation: Recommendation, controller: NavController) {
     Card(
         modifier = Modifier
             .width(150.dp)
             .aspectRatio(2 / 3f),
+        onClick = {
+            if (recommendation.url.contains("anime")) {
+                controller.navigate(Screen.AnimeDetails.route + "/${recommendation.id}")
+                return@Card
+            }
+            controller.navigate(Screen.MangaDetails.route + "/${recommendation.id}")
+        },
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
@@ -36,8 +45,8 @@ fun RecommendationCard(animeRecommendation: Recommendation) {
             modifier = Modifier.fillMaxSize()
         ) {
             Image(
-                painter = rememberImagePainter(animeRecommendation.imageUrl),
-                contentDescription = animeRecommendation.title,
+                painter = rememberImagePainter(recommendation.imageUrl),
+                contentDescription = recommendation.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -45,7 +54,7 @@ fun RecommendationCard(animeRecommendation: Recommendation) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = animeRecommendation.title,
+                text = recommendation.title,
                 style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier.padding(horizontal = 8.dp),
                 maxLines = 1,

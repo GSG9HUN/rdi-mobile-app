@@ -8,5 +8,5 @@ import javax.inject.Singleton
 class GetMangaRecommendationsUseCase @Inject constructor(
     private val mangaDetailsDomain: MangaDetailsDomain
 ) {
-    operator fun invoke(mangaId:Int) = mangaDetailsDomain.getMangaRecommendations(mangaId)
+    operator fun invoke(mangaId: Int) = mangaDetailsDomain.getMangaRecommendations(mangaId)
 }

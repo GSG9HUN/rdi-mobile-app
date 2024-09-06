@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import eu.tutorials.animelistapp.domain.model.details.animeDetails.animeCharacters.AnimeCharacter
+import eu.tutorials.animelistapp.presentation.ui.detailsScreen.components.CharacterColumn
 
 @Composable
 fun CharactersAndVoiceActors(animeCharacters: List<AnimeCharacter>) {
@@ -29,18 +30,19 @@ fun CharactersAndVoiceActors(animeCharacters: List<AnimeCharacter>) {
         )
         animeCharacters.forEach { character ->
             val voiceActor = character.voiceActors.find { it.language == "Japanese" }
-            if (voiceActor == null)
-                return
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-            ) {
-                CharacterColumn(modifier = Modifier.weight(1f),character = character.character)
-                Spacer(modifier = Modifier.width(16.dp))
-                VoiceActorColumn(modifier = Modifier.weight(1f), voiceActor = voiceActor)
+            if (voiceActor != null) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                ) {
+                    CharacterColumn(modifier = Modifier.weight(1f), character = character.character)
+                    Spacer(modifier = Modifier.width(16.dp))
+                    VoiceActorColumn(modifier = Modifier.weight(1f), voiceActor = voiceActor)
+                }
+                Spacer(modifier = Modifier.height(8.dp))
             }
-            Spacer(modifier = Modifier.height(8.dp))
+
         }
     }
 }

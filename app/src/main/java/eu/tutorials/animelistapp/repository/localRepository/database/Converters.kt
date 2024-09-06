@@ -94,18 +94,6 @@ class Converters {
         return gson.toJson(list)
     }
 
-    /*
-        @TypeConverter
-        fun fromJsonToRecommendation(value: String): Recommendation {
-            val type = object : TypeToken<Recommendation>() {}.type
-            return gson.fromJson(value, type)
-        }
-
-        @TypeConverter
-        fun fromRecommendationToJson(recommendation: Recommendation): String {
-            return gson.toJson(recommendation)
-        }*/
-
     @TypeConverter
     fun fromJsonToPublished(value: String): Published {
         val type = object : TypeToken<Published>() {}.type

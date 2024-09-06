@@ -9,6 +9,6 @@ class GetAnimeDetailsUseCase @Inject constructor(
     private val animeDetailsDomain: AnimeDetailsDomain
 ) {
     operator fun invoke(
-        id:Int
+        id: Int
     ) = animeDetailsDomain.getAnimeDetails(id)
 }

@@ -1,4 +1,4 @@
-package eu.tutorials.animelistapp.presentation.viewmodel.manga
+package eu.tutorials.animelistapp.presentation.ui.mainScreen
 
 import eu.tutorials.animelistapp.constants.enums.Manga.MangaFilter
 import eu.tutorials.animelistapp.constants.enums.Manga.MangaType

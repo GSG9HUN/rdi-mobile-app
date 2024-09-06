@@ -63,16 +63,19 @@ object AppModule {
     fun provideAnimeDao(database: AppDatabase) = database.animeDao()
 
     @Provides
+    fun provideAnimeDetailsDao(database: AppDatabase) = database.animeDetailsDao()
+
+    @Provides
     fun provideAnimeCharacterDao(database: AppDatabase) = database.animeCharacterDao()
 
     @Provides
     fun provideAnimeRecommendationDao(database: AppDatabase) = database.animeRecommendationDao()
 
     @Provides
-    fun provideAnimeDetailsDao(database: AppDatabase) = database.animeDetailsDao()
+    fun provideMangaDao(database: AppDatabase) = database.mangaDao()
 
     @Provides
-    fun provideMangaDao(database: AppDatabase) = database.mangaDao()
+    fun provideMangaDetailsDao(database: AppDatabase) = database.mangaDetailsDao()
 
     @Provides
     fun provideMangaCharacterDao(database: AppDatabase) = database.mangaCharacterDao()
@@ -80,8 +83,6 @@ object AppModule {
     @Provides
     fun provideMangaRecommendationDao(database: AppDatabase) = database.mangaRecommendationDao()
 
-    @Provides
-    fun provideMangaDetailsDao(database: AppDatabase) = database.mangaDetailsDao()
 
     @Provides
     @Singleton

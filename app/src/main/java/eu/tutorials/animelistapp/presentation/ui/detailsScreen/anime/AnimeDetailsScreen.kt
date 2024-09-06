@@ -15,20 +15,14 @@ import eu.tutorials.animelistapp.presentation.ui.detailsScreen.anime.components.
 import eu.tutorials.animelistapp.presentation.ui.detailsScreen.anime.components.CharactersAndVoiceActors
 import eu.tutorials.animelistapp.presentation.ui.detailsScreen.components.RecommendationsSection
 import eu.tutorials.animelistapp.presentation.ui.detailsScreen.components.Description
-import eu.tutorials.animelistapp.presentation.viewmodel.details.animeDetails.AnimeDetailsViewModel
+import eu.tutorials.animelistapp.presentation.ui.detailsScreen.anime.AnimeDetailsViewModel
 
 @Composable
 fun AnimeDetailsScreen(
-    id: Int,
     controller: NavController,
     animeDetailsViewModel: AnimeDetailsViewModel = hiltViewModel()
 ) {
     val animeDetailsUiState by animeDetailsViewModel.uiState.collectAsState()
-
-    animeDetailsViewModel.fetchAnimeDetails(id)
-    animeDetailsViewModel.fetchAnimeCharacters(id)
-    animeDetailsViewModel.fetchAnimeRecommendations(id)
-
 
     Scaffold(bottomBar = { BottomNavigationBar(controller) }) { innerPadding ->
         if (!animeDetailsUiState.isLoading) {
@@ -58,7 +52,10 @@ fun AnimeDetailsScreen(
 
                 animeDetailsUiState.animeRecommendations?.let { animeRecommendations ->
                     item {
-                        RecommendationsSection(animeRecommendations.map { it.recommendation })
+                        RecommendationsSection(
+                            animeRecommendations.map { it.recommendation },
+                            controller = controller
+                        )
                     }
                 }
             }

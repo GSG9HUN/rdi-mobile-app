@@ -13,10 +13,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import eu.tutorials.animelistapp.domain.model.details.Recommendation
 
 @Composable
-fun RecommendationsSection(recommendations: List<Recommendation>) {
+fun RecommendationsSection(recommendations: List<Recommendation>, controller: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -34,7 +35,7 @@ fun RecommendationsSection(recommendations: List<Recommendation>) {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(infiniteItems) { recommendation ->
-                RecommendationCard(animeRecommendation = recommendation)
+                RecommendationCard(recommendation = recommendation, controller = controller)
             }
         }
     }

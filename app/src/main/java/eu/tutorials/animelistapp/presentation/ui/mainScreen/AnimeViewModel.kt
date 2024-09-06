@@ -1,4 +1,4 @@
-package eu.tutorials.animelistapp.presentation.viewmodel.anime
+package eu.tutorials.animelistapp.presentation.ui.mainScreen
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -20,7 +20,6 @@ import javax.inject.Inject
 class AnimeViewModel @Inject constructor(
     private val getTopAnimesUseCase: GetTopAnimesUseCase,
 ) : ViewModel() {
-
     private val _uiState = MutableStateFlow(
         AnimeViewModelState(
             animes = listOf(), isLoading = false
@@ -28,6 +27,9 @@ class AnimeViewModel @Inject constructor(
     )
     val uiState = _uiState.asStateFlow()
 
+    init{
+        fetchTopAnimes()
+    }
 
     fun fetchTopAnimes() {
         viewModelScope.launch {
@@ -43,7 +45,6 @@ class AnimeViewModel @Inject constructor(
         viewModelScope.launch {
             callUseCase(true)
         }
-        _uiState.update { state -> state.copy(loadingMore = false) }
     }
 
     fun clearAnimes() {
@@ -70,8 +71,9 @@ class AnimeViewModel @Inject constructor(
         ).collect { result ->
             when (result) {
                 is Resource.Loading -> {
-                    if (!concatResult)
+                    if (!concatResult) {
                         _uiState.update { state -> state.copy(isLoading = true) }
+                    }
                 }
 
                 is Resource.Success -> {
@@ -80,17 +82,16 @@ class AnimeViewModel @Inject constructor(
                     if (concatResult) {
                         animes = _uiState.value.animes
                     }
-                    Log.e("success", animes.size.toString())
                     _uiState.update { state ->
                         state.copy(
-                            animes = animes + data, isLoading = false
+                            animes = animes + data, isLoading = false,loadingMore = false
                         )
                     }
                 }
 
                 is Resource.Error -> {
                     Log.e("error", result.error?.message.toString())
-                    _uiState.update { state -> state.copy(isLoading = false) }
+                    _uiState.update { state -> state.copy(isLoading = false, loadingMore = false) }
                 }
             }
         }

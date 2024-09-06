@@ -7,8 +7,8 @@ import androidx.room.Query
 
 @Dao
 abstract class MangaDetailsDao {
-    @Query("SELECT * FROM manga_details where id = :id")
-    abstract suspend fun getMangaById(id:Int): MangaDetailsEntity
+    @Query("SELECT * FROM manga_details where id = :mangaId")
+    abstract suspend fun getMangaDetails(mangaId: Int): MangaDetailsEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertMangaDetails(mangaDetailsEntity: MangaDetailsEntity)

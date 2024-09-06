@@ -25,14 +25,14 @@ data class MangaDetailsDto(
     val genres: List<GenreDto>,
     val themes: List<ThemeDto>
 ) {
-  fun toMangaDetails() = MangaDetails(
+    fun toMangaDetails() = MangaDetails(
         id = mal_id,
         url = url,
         image = images.jpg.image_url,
         title = title,
         type = type,
-        chapters=chapters,
-        volumes=volumes,
+        chapters = chapters,
+        volumes = volumes,
         status = status,
         published = published.toPublished(),
         score = score,

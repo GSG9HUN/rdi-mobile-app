@@ -1,6 +1,7 @@
-package eu.tutorials.animelistapp.presentation.viewmodel.details.mangaDetails
+package eu.tutorials.animelistapp.presentation.ui.detailsScreen.manga
 
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,16 +20,31 @@ class MangaDetailsViewModel @Inject constructor(
     private val getMangaDetailsUseCase: GetMangaDetailsUseCase,
     private val getMangaCharactersUseCase: GetMangaCharactersUseCase,
     private val getMangaRecommendationsUseCase: GetMangaRecommendationsUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+
+    private val id = savedStateHandle.get<String>("id")?.toInt() ?: -1
+
     private val _uiState = MutableStateFlow(
         MangaDetailsViewModelState(
             mangaDetails = null,
             mangaCharacters = null,
             mangaRecommendations = null,
-            isLoading = false
+            isLoading = false,
+            error = null
         )
     )
     val uiState = _uiState.asStateFlow()
+
+    init {
+        if (id < 1) {
+            _uiState.update { it.copy(error = "Invalid ID parameter", isLoading = false) }
+        } else {
+            fetchMangaDetails(id)
+            fetchMangaCharacters(id)
+            fetchMangaRecommendations(id)
+        }
+    }
 
     fun fetchMangaDetails(id: Int) {
         viewModelScope.launch {

@@ -43,11 +43,11 @@ class MangaRepositoryImpl @Inject constructor(
     override suspend fun getRecommendations(mangaId: Int): List<MangaRecommendation> {
         val remoteMangaRecommendations = mangaRemoteDataSource.getMangaRecommendations(mangaId)
             .map { it.toMangaRecommendation() }
-         mangaLocalDataSource.saveMangaRecommendations(remoteMangaRecommendations.map {
-             it.recommendation.toMangaRecommendationEntity(
-                 mangaId
-             )
-         })
+        mangaLocalDataSource.saveMangaRecommendations(remoteMangaRecommendations.map {
+            it.recommendation.toMangaRecommendationEntity(
+                mangaId
+            )
+        })
         return remoteMangaRecommendations
     }
 }
