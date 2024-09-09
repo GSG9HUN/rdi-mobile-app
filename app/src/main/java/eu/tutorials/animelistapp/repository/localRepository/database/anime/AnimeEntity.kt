@@ -13,7 +13,5 @@ data class AnimeEntity(
     val rating: Double,
     val episodes: Int
 ) {
-    fun toAnime(): Anime {
-        return Anime(id, title, description, imageUrl, rating, episodes)
-    }
+    fun toAnime() = Anime(id, title, description, imageUrl, rating, episodes)
 }

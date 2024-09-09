@@ -1,6 +1,5 @@
 package eu.tutorials.animelistapp.presentation.ui.mainScreen
 
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -20,8 +19,6 @@ import eu.tutorials.animelistapp.presentation.ui.LoadingScreen
 import eu.tutorials.animelistapp.presentation.ui.TopNavigationBar
 import eu.tutorials.animelistapp.presentation.ui.mainScreen.composables.AnimeList
 import eu.tutorials.animelistapp.presentation.ui.mainScreen.composables.MangaList
-import eu.tutorials.animelistapp.presentation.viewmodel.anime.AnimeViewModel
-import eu.tutorials.animelistapp.presentation.viewmodel.manga.MangaViewModel
 import eu.tutorials.animelistapp.constants.enums.Anime.AnimeAgeRating
 import eu.tutorials.animelistapp.constants.enums.Anime.AnimeType
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -40,9 +37,6 @@ fun MainScreen(
     var filterText by remember { mutableStateOf("") }
     var selectedType by remember { mutableStateOf(AnimeType.EMPTY) }
     var selectedRating by remember { mutableStateOf(AnimeAgeRating.EMPTY) }
-    if (selectedTab == "Anime") {
-        animeViewModel.fetchTopAnimes()
-    }
 
     Scaffold(scaffoldState = scaffoldState, topBar = {
         TopNavigationBar(selectedTab) { tab ->
@@ -50,33 +44,41 @@ fun MainScreen(
             if (tab == "Anime") {
                 animeViewModel.clearAnimes()
                 animeViewModel.fetchTopAnimes()
-
-            } else {
-                mangaViewModel.clearMangas()
-                mangaViewModel.fetchTopMangas()
+                return@TopNavigationBar
             }
+            mangaViewModel.clearMangas()
+            mangaViewModel.fetchTopMangas()
         }
-    }, bottomBar = { BottomNavigationBar(controller) }) { innerPadding ->
-        if (!animeUiState.isLoading && !mangaUiState.isLoading) {
-            Column(Modifier.padding(innerPadding)) {
-
-                if (selectedTab == "Anime") {
-                    val animes = animeViewModel.uiState.collectAsState().value.animes
-                    AnimeList(animes, scrollState)
-                    if (remember { derivedStateOf { scrollState.layoutInfo } }.value.visibleItemsInfo.lastOrNull()?.index == animes.size - 1) {
-
-                        animeViewModel.loadMoreAnimes()
-                    }
-                } else {
-                    val mangas = mangaViewModel.uiState.collectAsState().value.mangas
-                    MangaList(mangas, scrollState)
-                    if (remember { derivedStateOf { scrollState.layoutInfo } }.value.visibleItemsInfo.lastOrNull()?.index == mangas.size - 1) {
-                        mangaViewModel.loadMoreMangas()
-                    }
-                }
-            }
-        } else {
+    },
+        bottomBar = { BottomNavigationBar(controller) }) { innerPadding ->
+        if (animeUiState.isLoading || mangaUiState.isLoading) {
             LoadingScreen()
+            return@Scaffold
         }
+        Column(Modifier.padding(innerPadding)) {
+
+            if (selectedTab == "Anime") {
+                val animes = animeViewModel.uiState.collectAsState().value.animes
+                AnimeList(
+                    animeList = animes,
+                    scrollState = scrollState,
+                    controller = controller
+                )
+                if (remember { derivedStateOf { scrollState.layoutInfo } }.value.visibleItemsInfo.lastOrNull()?.index == animes.size - 1) {
+                    animeViewModel.loadMoreAnimes()
+                }
+                return@Scaffold
+            }
+            val mangas = mangaViewModel.uiState.collectAsState().value.mangas
+            MangaList(
+                mangaList = mangas,
+                scrollState = scrollState,
+                controller = controller
+            )
+            if (remember { derivedStateOf { scrollState.layoutInfo } }.value.visibleItemsInfo.lastOrNull()?.index == mangas.size - 1) {
+                mangaViewModel.loadMoreMangas()
+            }
+        }
+
     }
 }

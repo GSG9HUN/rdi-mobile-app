@@ -1,6 +1,6 @@
 package eu.tutorials.animelistapp.constants.enums.Manga
 
-enum class MangaFilter(private val filter:String) {
+enum class MangaFilter(private val filter: String) {
 
     EMPTY(""),
     PUBLISHING("publishing"),
@@ -8,7 +8,7 @@ enum class MangaFilter(private val filter:String) {
     BY_POPULARITY("bypopularity"),
     FAVORITE("favorite");
 
-    override fun toString():String{
+    override fun toString(): String {
         return filter
     }
 }

@@ -1,4 +1,4 @@
-package eu.tutorials.animelistapp.presentation.viewmodel.anime
+package eu.tutorials.animelistapp.presentation.ui.mainScreen
 
 import eu.tutorials.animelistapp.constants.enums.Anime.AnimeAgeRating
 import eu.tutorials.animelistapp.constants.enums.Anime.AnimeFilter

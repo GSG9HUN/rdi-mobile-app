@@ -1,4 +1,4 @@
-package eu.tutorials.animelistapp.presentation.viewmodel.manga
+package eu.tutorials.animelistapp.presentation.ui.mainScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,6 +26,10 @@ class MangaViewModel @Inject constructor(
     )
     val uiState = _uiState.asStateFlow()
 
+    init {
+        fetchTopMangas()
+    }
+
     fun fetchTopMangas() {
         viewModelScope.launch {
             callUseCase()
@@ -40,8 +44,6 @@ class MangaViewModel @Inject constructor(
         viewModelScope.launch {
             callUseCase(true)
         }
-        _uiState.update { state -> state.copy(loadingMore = false) }
-
     }
 
     fun clearMangas() {
@@ -63,8 +65,9 @@ class MangaViewModel @Inject constructor(
         ).collect { result ->
             when (result) {
                 is Resource.Loading -> {
-                    if (!concatResult)
+                    if (!concatResult) {
                         _uiState.update { state -> state.copy(isLoading = true) }
+                    }
                 }
 
                 is Resource.Success -> {
@@ -76,14 +79,15 @@ class MangaViewModel @Inject constructor(
                     _uiState.update { state ->
                         state.copy(
                             mangas = mangas + data,
-                            isLoading = false
+                            isLoading = false,
+                            loadingMore = false
                         )
                     }
                 }
 
                 is Resource.Error -> {
                     _uiState.update { state ->
-                        state.copy(isLoading = false)
+                        state.copy(isLoading = false, loadingMore = false)
                     }
                 }
             }
