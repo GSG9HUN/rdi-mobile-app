@@ -4,11 +4,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import eu.tutorials.animelistapp.domain.model.Anime
 
 @Composable
-fun AnimeList(animeList: List<Anime>, scrollState: LazyListState, controller: NavController) {
+fun AnimeList(
+    animeList: List<Anime>,
+    scrollState: LazyListState,
+    onClicked: (String)-> Unit
+) {
     LazyColumn(state = scrollState) {
         items(animeList) { anime ->
             ContentCard(
@@ -18,7 +21,7 @@ fun AnimeList(animeList: List<Anime>, scrollState: LazyListState, controller: Na
                 rating = anime.rating,
                 episodes = anime.episodes,
                 id = anime.id.toString(),
-                controller = controller
+                onClicked = onClicked
             )
         }
     }

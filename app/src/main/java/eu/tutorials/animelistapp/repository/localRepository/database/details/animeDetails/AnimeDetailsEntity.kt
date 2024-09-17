@@ -15,12 +15,12 @@ data class AnimeDetailsEntity(
     val id: Int,
     val url: String,
     val image: String,
-    val trailer: String,
+    val trailer: String?,
     val title: String,
     val type: String,
     val episodes: Int,
     val status: String,
-    val aired: Aired,
+    val aired: Aired?,
     val duration: String,
     val rating: String,
     val score: Float,
@@ -35,7 +35,7 @@ data class AnimeDetailsEntity(
     val producers: List<Producer>,
     val studios: List<Studio>,
     val genres: List<Genre>,
-    val themes: List<Theme>
+    val themes: List<Theme>?
 ) {
     fun toAnimeDetails() = AnimeDetails(
         id,

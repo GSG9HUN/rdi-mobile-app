@@ -5,6 +5,7 @@ import eu.tutorials.animelistapp.domain.model.Anime
 import eu.tutorials.animelistapp.domain.model.details.animeDetails.animeCharacters.AnimeCharacter
 import eu.tutorials.animelistapp.domain.model.details.animeDetails.AnimeDetails
 import eu.tutorials.animelistapp.domain.model.details.animeDetails.animeRecommendations.AnimeRecommendation
+import eu.tutorials.animelistapp.domain.model.myFavouriteList.anime.MyFavouriteAnime
 import eu.tutorials.animelistapp.repository.remoteRepository.datasource.anime.AnimeRepository
 import eu.tutorials.animelistapp.repository.localRepository.datasource.anime.AnimeLocalDataSource
 import javax.inject.Inject
@@ -50,5 +51,15 @@ class AnimeRepositoryImpl @Inject constructor(
         })
         return remoteAnimeRecommendations
     }
+
+    suspend fun getMyFavouriteAnimeList(): List<MyFavouriteAnime> =
+        animeLocalDataSource.getMyFavouriteAnimeList().map { it.toMyFavouriteAnime() }
+
+    suspend fun insertMyFavouriteAnime(myFavouriteAnime: MyFavouriteAnime) =
+        animeLocalDataSource.insertMyFavouriteAnime(myFavouriteAnime.toMyFavouriteAnimeEntity())
+
+
+    suspend fun getMyFavouriteAnimeStatus(id: Int) =
+        animeLocalDataSource.getMyListAnimeById(id)
 
 }

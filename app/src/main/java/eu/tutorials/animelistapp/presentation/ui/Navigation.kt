@@ -9,8 +9,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import eu.tutorials.animelistapp.constants.enums.myFavouriteList.MyFavouriteMangaStatus
+import eu.tutorials.animelistapp.constants.enums.myFavouriteList.MyFavouriteAnimeStatus
 import eu.tutorials.animelistapp.presentation.ui.detailsScreen.manga.MangaDetailsScreen
 import eu.tutorials.animelistapp.presentation.ui.mainScreen.MainScreen
+import eu.tutorials.animelistapp.presentation.ui.myListsScreen.MyListScreen
 
 @Composable
 fun Navigation(
@@ -23,21 +26,23 @@ fun Navigation(
     ) {
         composable(Screen.BottomScreen.Home.bRoute) {
             MainScreen(
-                controller = navController
+                navController = navController
             )
         }
-        composable(Screen.AnimeDetails.route + "/{id}") { backStackEntry ->
-            AnimeDetailsScreen(controller = navController)
-
+        composable(Screen.AnimeDetails.route + "/{id}") {
+            AnimeDetailsScreen(navController = navController)
         }
-        composable(Screen.MangaDetails.route + "/{id}") { backStackEntry ->
-            MangaDetailsScreen(controller = navController)
+        composable(Screen.MangaDetails.route + "/{id}") {
+            MangaDetailsScreen(navController = navController)
         }
         composable(Screen.Search.route) {
             Text(text = "Search screen")
         }
         composable(Screen.BottomScreen.MyLists.route) {
-            Text(text = "My lists.")
+            MyListScreen(navController = navController)
         }
     }
 }
+
+val animeTabs = MyFavouriteAnimeStatus.entries.map { it.toString() }
+val mangaTabs = MyFavouriteMangaStatus.entries.map { it.toString() }

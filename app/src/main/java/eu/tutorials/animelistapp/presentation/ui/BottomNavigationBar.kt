@@ -11,15 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 
 @Composable
-fun BottomNavigationBar(controller: NavController) {
+fun BottomNavigationBar(navController: NavController) {
     BottomNavigation {
         BottomNavigationItem(icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
             label = { Text("Home") },
             selected = true,
-            onClick = { controller.navigate(Screen.BottomScreen.Home.bRoute) })
+            onClick = { navController.navigate(Screen.BottomScreen.Home.bRoute) })
         BottomNavigationItem(icon = { Icon(Icons.Default.Person, contentDescription = "My Lists") },
             label = { Text("My Lists") },
             selected = false,
-            onClick = { controller.navigate(Screen.BottomScreen.MyLists.bRoute) })
+            onClick = { navController.navigate(Screen.BottomScreen.MyLists.bRoute) })
     }
 }

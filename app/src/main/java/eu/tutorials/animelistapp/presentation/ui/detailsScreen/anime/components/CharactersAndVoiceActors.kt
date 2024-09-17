@@ -30,7 +30,8 @@ fun CharactersAndVoiceActors(animeCharacters: List<AnimeCharacter>) {
         )
         animeCharacters.forEach { character ->
             val voiceActor = character.voiceActors.find { it.language == "Japanese" }
-            if (voiceActor != null) {
+
+            voiceActor?.let {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -42,7 +43,6 @@ fun CharactersAndVoiceActors(animeCharacters: List<AnimeCharacter>) {
                 }
                 Spacer(modifier = Modifier.height(8.dp))
             }
-
         }
     }
 }

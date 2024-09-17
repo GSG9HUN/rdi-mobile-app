@@ -20,7 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import eu.tutorials.animelistapp.domain.model.details.animeDetails.AnimeDetails
 
 @Composable
@@ -31,7 +31,7 @@ fun AnimeHeader(animeDetails: AnimeDetails) {
             .height(200.dp)
     ) {
         Image(
-            painter = rememberImagePainter(data = animeDetails.image),
+            painter = rememberAsyncImagePainter(animeDetails.image),
             contentDescription = animeDetails.title,
             modifier = Modifier
                 .fillMaxHeight()

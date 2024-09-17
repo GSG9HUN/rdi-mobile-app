@@ -65,7 +65,7 @@ fun AnimeInfo(animeDetails: AnimeDetails) {
                 }
             }
 
-            if (animeDetails.themes.isNotEmpty()) {
+            animeDetails.themes?.let {
                 Text(text = "Themes : ")
 
                 FlowRow(

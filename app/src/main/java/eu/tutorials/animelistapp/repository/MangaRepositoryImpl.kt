@@ -5,13 +5,14 @@ import eu.tutorials.animelistapp.domain.model.Manga
 import eu.tutorials.animelistapp.domain.model.details.mangaDetails.MangaDetails
 import eu.tutorials.animelistapp.domain.model.details.mangaDetails.mangaCharacters.MangaCharacter
 import eu.tutorials.animelistapp.domain.model.details.mangaDetails.mangaRecommendations.MangaRecommendation
+import eu.tutorials.animelistapp.domain.model.myFavouriteList.manga.MyFavouriteManga
 import eu.tutorials.animelistapp.repository.remoteRepository.datasource.manga.MangaRepository
 import eu.tutorials.animelistapp.repository.localRepository.datasource.manga.MangaLocalDataSource
 import javax.inject.Inject
 
 class MangaRepositoryImpl @Inject constructor(
     private val mangaRemoteDataSource: MangaRemoteDataSource,
-    private val mangaLocalDataSource: MangaLocalDataSource
+    private val mangaLocalDataSource: MangaLocalDataSource,
 ) : MangaRepository {
 
     override suspend fun getTopMangas(type: String, filter: String, page: Int): List<Manga> {
@@ -50,4 +51,14 @@ class MangaRepositoryImpl @Inject constructor(
         })
         return remoteMangaRecommendations
     }
+
+    suspend fun getMyFavouriteManga(): List<MyFavouriteManga> =
+        mangaLocalDataSource.getMyFavouriteManga().map { it.toMyFavouriteManga() }
+
+    suspend fun insertMyFavouriteManga(myFavouriteManga: MyFavouriteManga) =
+        mangaLocalDataSource.insertMyFavouriteManga(myFavouriteManga.toMyFavouriteMangaEntity())
+
+    suspend fun getMyFavouriteMangaStatus(id: Int) =
+        mangaLocalDataSource.getMyFavouriteMangaById(id)
+
 }

@@ -27,7 +27,7 @@ data class MangaDetailsEntity(
     val favorites: Int,
     val description: String,
     val genres: List<Genre>,
-    val themes: List<Theme>
+    val themes: List<Theme>?,
 ) {
     fun toMangaDetails() = MangaDetails(
         id = id,

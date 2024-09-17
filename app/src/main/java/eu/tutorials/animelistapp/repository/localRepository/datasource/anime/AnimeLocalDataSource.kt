@@ -8,13 +8,16 @@ import eu.tutorials.animelistapp.repository.localRepository.database.details.ani
 import eu.tutorials.animelistapp.repository.localRepository.database.details.animeDetails.AnimeDetailsEntity
 import eu.tutorials.animelistapp.repository.localRepository.database.details.animeDetails.animeRecommendations.AnimeRecommendationDao
 import eu.tutorials.animelistapp.repository.localRepository.database.details.animeDetails.animeRecommendations.AnimeRecommendationEntity
+import eu.tutorials.animelistapp.repository.localRepository.database.myFavouriteList.anime.MyFavouriteAnimeDao
+import eu.tutorials.animelistapp.repository.localRepository.database.myFavouriteList.anime.MyFavouriteAnimeEntity
 import jakarta.inject.Inject
 
 class AnimeLocalDataSource @Inject constructor(
     private val animeDao: AnimeDao,
     private val animeDetailsDao: AnimeDetailsDao,
     private val characterDao: AnimeCharacterDao,
-    private val recommendationDao: AnimeRecommendationDao
+    private val recommendationDao: AnimeRecommendationDao,
+    private val myFavouriteAnimeDao: MyFavouriteAnimeDao
 ) {
     suspend fun saveAnimes(animes: List<AnimeEntity>) = animeDao.insertAnimes(animes)
 
@@ -37,5 +40,16 @@ class AnimeLocalDataSource @Inject constructor(
 
     suspend fun getAllAnimeRecommendations(animeId: Int) =
         recommendationDao.getAllAnimeRecommendation(animeId)
+
+    suspend fun getMyFavouriteAnimeList() = myFavouriteAnimeDao.getMyFavouriteList()
+
+    suspend fun insertMyFavouriteAnime(myFavouriteAnimeEntity: MyFavouriteAnimeEntity) =
+        myFavouriteAnimeDao.insertToMyFavouriteAnimeList(myFavouriteAnimeEntity = myFavouriteAnimeEntity)
+
+    suspend fun updateMyFavouriteAnime(myFavouriteAnimeEntity: MyFavouriteAnimeEntity) =
+        myFavouriteAnimeDao.updateMyFavouriteAnime(myFavouriteAnimeEntity = myFavouriteAnimeEntity)
+
+    suspend fun getMyListAnimeById(id: Int) =
+        myFavouriteAnimeDao.getMyFavouriteAnimeById(id)
 
 }

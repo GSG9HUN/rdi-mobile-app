@@ -59,7 +59,7 @@ fun MangaInfo(mangaDetails: MangaDetails) {
                 }
             }
 
-            if (mangaDetails.themes.isNotEmpty()) {
+            mangaDetails.themes?.let {
                 Text(text = "Themes : ")
 
                 FlowRow(
@@ -71,7 +71,6 @@ fun MangaInfo(mangaDetails: MangaDetails) {
                     }
                 }
             }
-
         }
     }
 }
