@@ -10,21 +10,23 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import eu.tutorials.animelistapp.presentation.ui.BottomNavigationBar
 import eu.tutorials.animelistapp.presentation.ui.LoadingScreen
+import eu.tutorials.animelistapp.presentation.ui.Screen
 import eu.tutorials.animelistapp.presentation.ui.detailsScreen.anime.components.AnimeHeader
 import eu.tutorials.animelistapp.presentation.ui.detailsScreen.anime.components.AnimeInfo
 import eu.tutorials.animelistapp.presentation.ui.detailsScreen.anime.components.CharactersAndVoiceActors
 import eu.tutorials.animelistapp.presentation.ui.detailsScreen.components.RecommendationsSection
 import eu.tutorials.animelistapp.presentation.ui.detailsScreen.components.Description
 import eu.tutorials.animelistapp.presentation.ui.detailsScreen.anime.AnimeDetailsViewModel
+import eu.tutorials.animelistapp.presentation.ui.detailsScreen.anime.components.AnimeUserStatusSection
 
 @Composable
 fun AnimeDetailsScreen(
-    controller: NavController,
+    navController: NavController,
     animeDetailsViewModel: AnimeDetailsViewModel = hiltViewModel()
 ) {
     val animeDetailsUiState by animeDetailsViewModel.uiState.collectAsState()
 
-    Scaffold(bottomBar = { BottomNavigationBar(controller) }) { innerPadding ->
+    Scaffold(bottomBar = { BottomNavigationBar(navController) }) { innerPadding ->
         if (!animeDetailsUiState.isLoading) {
             LazyColumn(
                 modifier = Modifier
@@ -41,6 +43,21 @@ fun AnimeDetailsScreen(
                         AnimeInfo(animeDetails)
                     }
                     item {
+                        AnimeUserStatusSection(
+                            animeUserStatus = animeDetailsUiState.animeUserStatus,
+                            onStatusChange = { newStatus ->
+                                animeDetailsViewModel.updateAnimeStatus(
+                                    newStatus
+                                )
+                            },
+                            onEpisodeChange = { newEpisodeCount ->
+                                animeDetailsViewModel.updateWatchedEpisodes(
+                                    newEpisodeCount
+                                )
+                            }
+                        )
+                    }
+                    item {
                         Description(animeDetails.description)
                     }
                 }
@@ -54,7 +71,7 @@ fun AnimeDetailsScreen(
                     item {
                         RecommendationsSection(
                             animeRecommendations.map { it.recommendation },
-                            controller = controller
+                            onClicked={id-> navController.navigate(Screen.AnimeDetails.route+"/${id}")}
                         )
                     }
                 }

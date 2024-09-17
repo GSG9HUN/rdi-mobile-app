@@ -16,16 +16,17 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import eu.tutorials.animelistapp.presentation.ui.BottomNavigationBar
 import eu.tutorials.animelistapp.presentation.ui.LoadingScreen
-import eu.tutorials.animelistapp.presentation.ui.TopNavigationBar
+import eu.tutorials.animelistapp.presentation.ui.TopMainNavigationBar
 import eu.tutorials.animelistapp.presentation.ui.mainScreen.composables.AnimeList
 import eu.tutorials.animelistapp.presentation.ui.mainScreen.composables.MangaList
 import eu.tutorials.animelistapp.constants.enums.Anime.AnimeAgeRating
 import eu.tutorials.animelistapp.constants.enums.Anime.AnimeType
 import androidx.hilt.navigation.compose.hiltViewModel
+import eu.tutorials.animelistapp.presentation.ui.Screen
 
 @Composable
 fun MainScreen(
-    controller: NavController,
+    navController: NavController,
     animeViewModel: AnimeViewModel = hiltViewModel(),
     mangaViewModel: MangaViewModel = hiltViewModel()
 ) {
@@ -39,18 +40,18 @@ fun MainScreen(
     var selectedRating by remember { mutableStateOf(AnimeAgeRating.EMPTY) }
 
     Scaffold(scaffoldState = scaffoldState, topBar = {
-        TopNavigationBar(selectedTab) { tab ->
+        TopMainNavigationBar(selectedTab) { tab ->
             selectedTab = tab
             if (tab == "Anime") {
                 animeViewModel.clearAnimes()
                 animeViewModel.fetchTopAnimes()
-                return@TopNavigationBar
+                return@TopMainNavigationBar
             }
             mangaViewModel.clearMangas()
             mangaViewModel.fetchTopMangas()
         }
     },
-        bottomBar = { BottomNavigationBar(controller) }) { innerPadding ->
+        bottomBar = { BottomNavigationBar(navController) }) { innerPadding ->
         if (animeUiState.isLoading || mangaUiState.isLoading) {
             LoadingScreen()
             return@Scaffold
@@ -62,7 +63,7 @@ fun MainScreen(
                 AnimeList(
                     animeList = animes,
                     scrollState = scrollState,
-                    controller = controller
+                    onClicked ={ id-> navController.navigate(Screen.AnimeDetails.route + "/${id}")}
                 )
                 if (remember { derivedStateOf { scrollState.layoutInfo } }.value.visibleItemsInfo.lastOrNull()?.index == animes.size - 1) {
                     animeViewModel.loadMoreAnimes()
@@ -73,7 +74,7 @@ fun MainScreen(
             MangaList(
                 mangaList = mangas,
                 scrollState = scrollState,
-                controller = controller
+                onClicked ={ id-> navController.navigate(Screen.MangaDetails.route + "/${id}")}
             )
             if (remember { derivedStateOf { scrollState.layoutInfo } }.value.visibleItemsInfo.lastOrNull()?.index == mangas.size - 1) {
                 mangaViewModel.loadMoreMangas()

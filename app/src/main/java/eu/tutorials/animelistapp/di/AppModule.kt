@@ -29,7 +29,7 @@ object AppModule {
     @Singleton
     fun provideAnimeRepository(
         animeRemoteDataSource: AnimeRemoteDataSource,
-        animeLocalDataSource: AnimeLocalDataSource
+        animeLocalDataSource: AnimeLocalDataSource,
     ): AnimeRepository {
         return AnimeRepositoryImpl(
             animeRemoteDataSource, animeLocalDataSource
@@ -40,7 +40,7 @@ object AppModule {
     @Singleton
     fun provideMangaRepository(
         mangaRemoteDataSource: MangaRemoteDataSource,
-        mangaLocalDataSource: MangaLocalDataSource
+        mangaLocalDataSource: MangaLocalDataSource,
     ): MangaRepository {
         return MangaRepositoryImpl(
             mangaRemoteDataSource, mangaLocalDataSource
@@ -83,6 +83,11 @@ object AppModule {
     @Provides
     fun provideMangaRecommendationDao(database: AppDatabase) = database.mangaRecommendationDao()
 
+    @Provides
+    fun provideMyFavouriteAnimeDao(database: AppDatabase) = database.myFavouriteAnimeDao()
+
+    @Provides
+    fun provideMyFavouriteMangaDao(database: AppDatabase) = database.myFavouriteMangaDao()
 
     @Provides
     @Singleton

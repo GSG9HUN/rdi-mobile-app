@@ -20,7 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import eu.tutorials.animelistapp.domain.model.details.mangaDetails.MangaDetails
 
 @Composable
@@ -31,7 +31,7 @@ fun MangaHeader(mangaDetails: MangaDetails) {
             .height(200.dp)
     ) {
         Image(
-            painter = rememberImagePainter(data = mangaDetails.image),
+            painter = rememberAsyncImagePainter(mangaDetails.image),
             contentDescription = mangaDetails.title,
             modifier = Modifier
                 .fillMaxHeight()
@@ -50,7 +50,8 @@ fun MangaHeader(mangaDetails: MangaDetails) {
                 color = Color.Black,
                 fontSize = 24.sp,
             )
-            if (mangaDetails.chapters != null) {
+
+            mangaDetails.chapters?.let {
                 Text(
                     text = "Chapters: ${mangaDetails.chapters}",
                     style = MaterialTheme.typography.bodySmall,
@@ -58,7 +59,7 @@ fun MangaHeader(mangaDetails: MangaDetails) {
                     fontSize = 16.sp,
                 )
             }
-            if (mangaDetails.volumes != null) {
+            mangaDetails.volumes?.let {
                 Text(
                     text = "Volumes: ${mangaDetails.volumes}",
                     style = MaterialTheme.typography.bodySmall,
@@ -66,7 +67,6 @@ fun MangaHeader(mangaDetails: MangaDetails) {
                     fontSize = 16.sp,
                 )
             }
-
         }
     }
 }

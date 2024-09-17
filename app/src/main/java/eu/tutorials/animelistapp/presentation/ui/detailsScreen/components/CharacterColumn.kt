@@ -19,7 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import eu.tutorials.animelistapp.domain.model.details.Character
 
 @Composable
@@ -29,7 +29,7 @@ fun CharacterColumn(modifier: Modifier, character: Character) {
         modifier = modifier
     ) {
         Image(
-            painter = rememberImagePainter(character.imageUrl),
+            painter = rememberAsyncImagePainter(character.imageUrl),
             contentDescription = character.name,
             modifier = Modifier
                 .size(80.dp)
