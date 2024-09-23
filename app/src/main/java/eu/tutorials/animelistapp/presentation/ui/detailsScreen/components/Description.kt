@@ -9,12 +9,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Description(synopsis: String) {
-    Text(text = "Synopsis: ")
-    Text(
-        text = synopsis,
-        style = MaterialTheme.typography.bodyMedium,
-        textAlign = TextAlign.Justify,
-        modifier = Modifier.padding(16.dp)
-    )
+fun Description(synopsis: String?) {
+    synopsis?.let {
+        Text(text = "Synopsis: ")
+        Text(
+            text = synopsis,
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Justify,
+            modifier = Modifier.padding(16.dp)
+        )
+    }
 }

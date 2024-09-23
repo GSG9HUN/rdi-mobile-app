@@ -54,4 +54,11 @@ interface ApiService {
 
     @GET("manga/{mangaId}/recommendations")
     suspend fun getMangaRecommendations(@Path("mangaId") mangaId: Int): MangaRecommendationsResponse
+
+    @GET("anime")
+    suspend fun getAnimeSearch(@Query("q") query:String):AnimeResponse
+
+    @GET("manga")
+    suspend fun getMangaSearch(@Query("q") query:String):MangaResponse
+
 }

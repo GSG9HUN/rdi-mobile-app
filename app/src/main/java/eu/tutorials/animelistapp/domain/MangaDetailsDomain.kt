@@ -14,12 +14,13 @@ import javax.inject.Singleton
 class MangaDetailsDomain @Inject constructor(private val mangaRepository: MangaRepositoryImpl) {
 
     fun getMangaDetails(
-        id: Int
+        id: Int,
     ): Flow<Resource<MangaDetails>> {
         return flow {
             emit(Resource.Loading())
             try {
-                val mangaDetails = mangaRepository.getMangaById(id)
+                val mangaDetails = mangaRepository.getMangaById(id).toMangaDetails()
+                mangaRepository.saveMangaDetails(mangaDetails.toMangaDetailsEntity())
                 emit(Resource.Success(mangaDetails))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
@@ -31,7 +32,13 @@ class MangaDetailsDomain @Inject constructor(private val mangaRepository: MangaR
         return flow {
             emit(Resource.Loading())
             try {
-                val mangaCharacters = mangaRepository.getCharacters(mangaId)
+                val mangaCharacters =
+                    mangaRepository.getCharacters(mangaId).map { it.toMangaCharacter() }
+                mangaRepository.saveCharacters(mangaCharacters.map {
+                    it.toMangaCharacterEntity(
+                        mangaId
+                    )
+                })
                 emit(Resource.Success(mangaCharacters))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
@@ -43,7 +50,13 @@ class MangaDetailsDomain @Inject constructor(private val mangaRepository: MangaR
         return flow {
             emit(Resource.Loading())
             try {
-                val mangaRecommendations = mangaRepository.getRecommendations(mangaId)
+                val mangaRecommendations =
+                    mangaRepository.getRecommendations(mangaId).map { it.toMangaRecommendation() }
+                mangaRepository.saveMangaRecommendation(mangaRecommendations.map {
+                    it.recommendation.toMangaRecommendationEntity(
+                        mangaId
+                    )
+                })
                 emit(Resource.Success(mangaRecommendations))
             } catch (e: Exception) {
                 emit(Resource.Error(e))

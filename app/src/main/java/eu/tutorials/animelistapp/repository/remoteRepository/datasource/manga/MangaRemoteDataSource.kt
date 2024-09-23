@@ -4,7 +4,7 @@ import eu.tutorials.animelistapp.repository.remoteRepository.ApiService
 import javax.inject.Inject
 
 class MangaRemoteDataSource @Inject constructor(
-    private val apiService: ApiService
+    private val apiService: ApiService,
 ) {
     suspend fun getTopMangas(type: String, filter: String, page: Int) =
         apiService.getTopMangas(type, filter, page).data
@@ -15,4 +15,6 @@ class MangaRemoteDataSource @Inject constructor(
 
     suspend fun getMangaRecommendations(mangaId: Int) =
         apiService.getMangaRecommendations(mangaId).data
+
+    suspend fun getMangaSearch(query: String) = apiService.getMangaSearch(query).data
 }

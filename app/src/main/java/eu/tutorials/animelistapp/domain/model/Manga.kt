@@ -5,7 +5,7 @@ import eu.tutorials.animelistapp.repository.localRepository.database.manga.Manga
 data class Manga(
     val id: Int,
     val title: String,
-    val description: String,
+    val description: String?,
     val imageUrl: String,
     val rating: Double
 

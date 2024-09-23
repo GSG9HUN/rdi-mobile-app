@@ -15,19 +15,23 @@ import androidx.compose.ui.unit.dp
 import eu.tutorials.animelistapp.R
 
 @Composable
-fun TopMainNavigationBar(selectedTab: String, onTabSelected: (String) -> Unit) {
+fun TopNavigationBar(
+    selectedTab: String,
+    onTabSelected: (String) -> Unit,
+    filter: Boolean = false,
+) {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
-        Icon(
-            painter = painterResource(id = R.drawable.baseline_filter_list_alt_24),
-            contentDescription = "filter"
-        )
-        Text(text = "Anime",
-            modifier = Modifier
-                .clickable {
-                    onTabSelected("Anime")
-                }
-                .padding(16.dp),
-            color = if (selectedTab == "Anime") Color.Blue else Color.Gray)
+        if (filter) {
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_filter_list_alt_24),
+                contentDescription = "filter"
+            )
+        }
+        Text(text = "Anime", modifier = Modifier
+            .clickable {
+                onTabSelected("Anime")
+            }
+            .padding(16.dp), color = if (selectedTab == "Anime") Color.Blue else Color.Gray)
         Text(text = "Manga",
             modifier = Modifier
                 .clickable { onTabSelected("Manga") }

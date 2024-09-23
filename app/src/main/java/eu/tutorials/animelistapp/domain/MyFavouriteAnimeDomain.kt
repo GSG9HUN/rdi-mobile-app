@@ -14,7 +14,8 @@ class MyFavouriteAnimeDomain @Inject constructor(private val animeRepository: An
         return flow {
             emit(Resource.Loading())
             try {
-                val myFavouriteAnime = animeRepository.getMyFavouriteAnimeList()
+                val myFavouriteAnime =
+                    animeRepository.getMyFavouriteAnimeList().map { it.toMyFavouriteAnime() }
                 emit(Resource.Success(myFavouriteAnime))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
@@ -26,7 +27,7 @@ class MyFavouriteAnimeDomain @Inject constructor(private val animeRepository: An
         return flow {
             emit(Resource.Loading())
             try {
-                animeRepository.insertMyFavouriteAnime(myFavouriteAnime = myFavouriteAnime)
+                animeRepository.insertMyFavouriteAnime(myFavouriteAnimeEntity = myFavouriteAnime.toMyFavouriteAnimeEntity())
                 emit(Resource.Success(1))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
@@ -38,7 +39,8 @@ class MyFavouriteAnimeDomain @Inject constructor(private val animeRepository: An
         return flow {
             emit(Resource.Loading())
             try {
-                val myFavouriteAnime = animeRepository.getMyFavouriteAnimeStatus(id = id)?.toMyFavouriteAnime()
+                val myFavouriteAnime =
+                    animeRepository.getMyFavouriteAnimeStatus(id = id)?.toMyFavouriteAnime()
                 emit(Resource.Success(myFavouriteAnime))
             } catch (e: Exception) {
                 emit(Resource.Error(e))

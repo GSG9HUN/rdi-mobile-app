@@ -2,7 +2,6 @@ package eu.tutorials.animelistapp.presentation.ui
 
 import AnimeDetailsScreen
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -14,6 +13,7 @@ import eu.tutorials.animelistapp.constants.enums.myFavouriteList.MyFavouriteAnim
 import eu.tutorials.animelistapp.presentation.ui.detailsScreen.manga.MangaDetailsScreen
 import eu.tutorials.animelistapp.presentation.ui.mainScreen.MainScreen
 import eu.tutorials.animelistapp.presentation.ui.myListsScreen.MyListScreen
+import eu.tutorials.animelistapp.presentation.ui.searchScreen.SearchScreen
 
 @Composable
 fun Navigation(
@@ -35,8 +35,8 @@ fun Navigation(
         composable(Screen.MangaDetails.route + "/{id}") {
             MangaDetailsScreen(navController = navController)
         }
-        composable(Screen.Search.route) {
-            Text(text = "Search screen")
+        composable(Screen.BottomScreen.Search.bRoute) {
+            SearchScreen(navController = navController)
         }
         composable(Screen.BottomScreen.MyLists.route) {
             MyListScreen(navController = navController)

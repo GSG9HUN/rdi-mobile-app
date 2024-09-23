@@ -1,13 +1,17 @@
 package eu.tutorials.animelistapp.repository
 
 import eu.tutorials.animelistapp.repository.remoteRepository.datasource.manga.MangaRemoteDataSource
-import eu.tutorials.animelistapp.domain.model.Manga
-import eu.tutorials.animelistapp.domain.model.details.mangaDetails.MangaDetails
-import eu.tutorials.animelistapp.domain.model.details.mangaDetails.mangaCharacters.MangaCharacter
-import eu.tutorials.animelistapp.domain.model.details.mangaDetails.mangaRecommendations.MangaRecommendation
-import eu.tutorials.animelistapp.domain.model.myFavouriteList.manga.MyFavouriteManga
+import eu.tutorials.animelistapp.repository.localRepository.database.details.mangaDetails.MangaDetailsEntity
+import eu.tutorials.animelistapp.repository.localRepository.database.details.mangaDetails.mangaCharacters.MangaCharacterEntity
+import eu.tutorials.animelistapp.repository.localRepository.database.details.mangaDetails.mangaRecommendation.MangaRecommendationEntity
+import eu.tutorials.animelistapp.repository.localRepository.database.manga.MangaEntity
+import eu.tutorials.animelistapp.repository.localRepository.database.myFavouriteList.manga.MyFavouriteMangaEntity
 import eu.tutorials.animelistapp.repository.remoteRepository.datasource.manga.MangaRepository
 import eu.tutorials.animelistapp.repository.localRepository.datasource.manga.MangaLocalDataSource
+import eu.tutorials.animelistapp.repository.remoteRepository.model.details.mangaDetails.MangaDetailsDto
+import eu.tutorials.animelistapp.repository.remoteRepository.model.details.mangaDetails.mangaCharacters.MangaCharacterDto
+import eu.tutorials.animelistapp.repository.remoteRepository.model.details.mangaDetails.mangaRecommendations.MangaRecommendationDto
+import eu.tutorials.animelistapp.repository.remoteRepository.model.manga.MangaDto
 import javax.inject.Inject
 
 class MangaRepositoryImpl @Inject constructor(
@@ -15,48 +19,54 @@ class MangaRepositoryImpl @Inject constructor(
     private val mangaLocalDataSource: MangaLocalDataSource,
 ) : MangaRepository {
 
-    override suspend fun getTopMangas(type: String, filter: String, page: Int): List<Manga> {
+    override suspend fun getTopMangas(type: String, filter: String, page: Int): List<MangaDto> {
         val remoteMangas =
-            mangaRemoteDataSource.getTopMangas(type, filter, page).map { it.toManga() }
-        mangaLocalDataSource.saveMangas(remoteMangas.map { it.toMangaEntity() })
+            mangaRemoteDataSource.getTopMangas(type, filter, page)
         return remoteMangas
     }
 
-    override suspend fun getMangaById(id: Int): MangaDetails {
-        val remoteMangaDetails = mangaRemoteDataSource.getMangaById(id).toMangaDetails()
-        mangaLocalDataSource.saveMangaDetails(remoteMangaDetails.toMangaDetailsEntity())
+    suspend fun saveMangas(mangas: List<MangaEntity>) {
+        mangaLocalDataSource.saveMangas(mangas)
+    }
+
+    override suspend fun getMangaById(id: Int): MangaDetailsDto {
+        val remoteMangaDetails = mangaRemoteDataSource.getMangaById(id)
         return remoteMangaDetails
     }
 
-    override suspend fun getCharacters(mangaId: Int): List<MangaCharacter> {
+    suspend fun saveMangaDetails(mangaDetailsEntity: MangaDetailsEntity) {
+        mangaLocalDataSource.saveMangaDetails(mangaDetailsEntity)
+    }
 
+    override suspend fun getCharacters(mangaId: Int): List<MangaCharacterDto> {
         val remoteMangaCharacters =
-            mangaRemoteDataSource.getMangaCharacters(mangaId).map { it.toMangaCharacter() }
-        mangaLocalDataSource.saveMangaCharacters(remoteMangaCharacters.map {
-            it.toMangaCharacterEntity(
-                mangaId
-            )
-        })
-
+            mangaRemoteDataSource.getMangaCharacters(mangaId)
         return remoteMangaCharacters
     }
 
-    override suspend fun getRecommendations(mangaId: Int): List<MangaRecommendation> {
+    suspend fun saveCharacters(characters: List<MangaCharacterEntity>) {
+        mangaLocalDataSource.saveMangaCharacters(characters)
+    }
+
+    override suspend fun getRecommendations(mangaId: Int): List<MangaRecommendationDto> {
         val remoteMangaRecommendations = mangaRemoteDataSource.getMangaRecommendations(mangaId)
-            .map { it.toMangaRecommendation() }
-        mangaLocalDataSource.saveMangaRecommendations(remoteMangaRecommendations.map {
-            it.recommendation.toMangaRecommendationEntity(
-                mangaId
-            )
-        })
         return remoteMangaRecommendations
     }
 
-    suspend fun getMyFavouriteManga(): List<MyFavouriteManga> =
-        mangaLocalDataSource.getMyFavouriteManga().map { it.toMyFavouriteManga() }
+    suspend fun saveMangaRecommendation(recommendation: List<MangaRecommendationEntity>) {
+        mangaLocalDataSource.saveMangaRecommendations(recommendation)
+    }
 
-    suspend fun insertMyFavouriteManga(myFavouriteManga: MyFavouriteManga) =
-        mangaLocalDataSource.insertMyFavouriteManga(myFavouriteManga.toMyFavouriteMangaEntity())
+    override suspend fun getMangaSearch(query: String): List<MangaDto> {
+        val remoteSearchManga = mangaRemoteDataSource.getMangaSearch(query)
+        return remoteSearchManga
+    }
+
+    suspend fun getMyFavouriteManga(): List<MyFavouriteMangaEntity> =
+        mangaLocalDataSource.getMyFavouriteManga()
+
+    suspend fun insertMyFavouriteManga(myFavouriteMangaEntity: MyFavouriteMangaEntity) =
+        mangaLocalDataSource.insertMyFavouriteManga(myFavouriteMangaEntity)
 
     suspend fun getMyFavouriteMangaStatus(id: Int) =
         mangaLocalDataSource.getMyFavouriteMangaById(id)

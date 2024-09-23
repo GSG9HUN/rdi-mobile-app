@@ -20,4 +20,6 @@ class AnimeRemoteDataSource @Inject constructor(
 
     suspend fun getAnimeRecommendations(animeId: Int) =
         apiService.getAnimeRecommendations(animeId).data
+
+    suspend fun getAnimeSearch(query:String) = apiService.getAnimeSearch(query).data
 }

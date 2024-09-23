@@ -38,7 +38,7 @@ import eu.tutorials.animelistapp.repository.localRepository.database.myFavourite
         MyFavouriteAnimeEntity::class,
         MyFavouriteMangaEntity::class
     ],
-    version = 11,
+    version = 13,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
