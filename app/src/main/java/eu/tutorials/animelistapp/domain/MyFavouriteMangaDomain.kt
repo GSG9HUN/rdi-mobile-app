@@ -14,7 +14,8 @@ class MyFavouriteMangaDomain @Inject constructor(private val mangaRepository: Ma
         return flow {
             emit(Resource.Loading())
             try {
-                val myFavouriteManga = mangaRepository.getMyFavouriteManga()
+                val myFavouriteManga =
+                    mangaRepository.getMyFavouriteManga().map { it.toMyFavouriteManga() }
                 emit(Resource.Success(myFavouriteManga))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
@@ -26,7 +27,7 @@ class MyFavouriteMangaDomain @Inject constructor(private val mangaRepository: Ma
         return flow {
             emit(Resource.Loading())
             try {
-                mangaRepository.insertMyFavouriteManga(myFavouriteManga = myFavouriteManga)
+                mangaRepository.insertMyFavouriteManga(myFavouriteMangaEntity = myFavouriteManga.toMyFavouriteMangaEntity())
                 emit(Resource.Success(1))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
@@ -38,7 +39,8 @@ class MyFavouriteMangaDomain @Inject constructor(private val mangaRepository: Ma
         return flow {
             emit(Resource.Loading())
             try {
-                val myFavouriteManga = mangaRepository.getMyFavouriteMangaStatus(id = id)?.toMyFavouriteManga()
+                val myFavouriteManga =
+                    mangaRepository.getMyFavouriteMangaStatus(id = id)?.toMyFavouriteManga()
                 emit(Resource.Success(myFavouriteManga))
             } catch (e: Exception) {
                 emit(Resource.Error(e))

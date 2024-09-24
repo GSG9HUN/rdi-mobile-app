@@ -8,7 +8,7 @@ import eu.tutorials.animelistapp.domain.model.Manga
 data class MangaEntity(
     @PrimaryKey() val id: Int,
     val title: String,
-    val description: String,
+    val description: String?,
     val imageUrl: String,
     val rating: Double
 ) {

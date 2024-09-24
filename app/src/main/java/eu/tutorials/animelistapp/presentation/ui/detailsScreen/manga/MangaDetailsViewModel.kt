@@ -262,15 +262,14 @@ class MangaDetailsViewModel @Inject constructor(
                 )
             insertMyFavouriteMangaUseCase.invoke(myFavouriteManga).collect { result ->
                 when (result) {
-                    is Resource.Loading -> {}
                     is Resource.Success -> {
                         fetchMangaListStatus(id = id)
-
                     }
 
                     is Resource.Error -> {
                         _uiState.update { state -> state.copy(error = result.error?.message) }
                     }
+                    else ->{}
                 }
             }
         }

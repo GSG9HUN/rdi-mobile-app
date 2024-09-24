@@ -9,20 +9,18 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AnimeDomain @Inject constructor(private val animeRepository: AnimeRepositoryImpl) {
-    fun getTopAnime(
-        type: String, filter: String, rating: String, sfw: Boolean, page: Int,
-    ): Flow<Resource<List<Anime>>> {
+class AnimeSearchDomain @Inject constructor(val animeRepository: AnimeRepositoryImpl) {
+    fun getAnimeSearch(query: String): Flow<Resource<List<Anime>>> {
         return flow {
             emit(Resource.Loading())
             try {
-                val animes = animeRepository.getTopAnimes(type, filter, rating, sfw, page)
-                    .map { it.toAnime() }
-                animeRepository.saveAnimes(animes.map { it.toAnimeEntity() })
-                emit(Resource.Success(animes))
+                val searchedAnimeList = animeRepository.getAnimeSearch(query).map { it.toAnime() }
+                animeRepository.saveAnimes(searchedAnimeList.map { it.toAnimeEntity() })
+                emit(Resource.Success(searchedAnimeList))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
             }
+
         }
     }
 }

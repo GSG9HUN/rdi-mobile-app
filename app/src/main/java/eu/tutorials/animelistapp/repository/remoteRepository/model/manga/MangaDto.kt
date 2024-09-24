@@ -6,7 +6,7 @@ import eu.tutorials.animelistapp.repository.remoteRepository.model.ImagesDto
 data class MangaDto(
     val mal_id: String,
     val title: String,
-    val synopsis: String,
+    val synopsis: String?,
     val images: ImagesDto,
     val score: Double,
 ) {

@@ -22,7 +22,7 @@ fun ContentCard(
     onClicked: (String) -> Unit,
     id: String,
     title: String,
-    description: String,
+    description: String?,
     imageUrl: String,
     rating: Double,
     episodes: Int? = null,
@@ -43,7 +43,9 @@ fun ContentCard(
             )
             Column(modifier = Modifier.padding(8.dp)) {
                 Text(text = title, fontWeight = FontWeight.Bold)
-                Text(text = description, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                description?.let{
+                    Text(text = description, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                }
                 Row(
                     Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
                 ) {

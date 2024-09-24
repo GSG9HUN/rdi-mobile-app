@@ -9,17 +9,18 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MangaDomain @Inject constructor(private val mangaRepository: MangaRepositoryImpl) {
-    fun getTopMangas(type: String, filter: String, page: Int): Flow<Resource<List<Manga>>> {
+class MangaSearchDomain @Inject constructor(val mangaRepository: MangaRepositoryImpl) {
+    fun getMangaSearch(query: String): Flow<Resource<List<Manga>>> {
         return flow {
             emit(Resource.Loading())
             try {
-                val mangas = mangaRepository.getTopMangas(type, filter, page).map { it.toManga() }
-                mangaRepository.saveMangas(mangas.map { it.toMangaEntity() })
-                emit(Resource.Success(mangas))
+                val searchedMangaList = mangaRepository.getMangaSearch(query).map { it.toManga() }
+                mangaRepository.saveMangas(searchedMangaList.map { it.toMangaEntity() })
+                emit(Resource.Success(searchedMangaList))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
             }
+
         }
     }
 }

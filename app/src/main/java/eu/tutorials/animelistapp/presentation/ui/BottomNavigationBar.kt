@@ -7,12 +7,18 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     BottomNavigation {
+        BottomNavigationItem(icon = { Icon(Icons.Default.Search, contentDescription = "Home") },
+            label = { Text("Search") },
+            selected = false,
+            onClick = { navController.navigate(Screen.BottomScreen.Search.bRoute) })
+
         BottomNavigationItem(icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
             label = { Text("Home") },
             selected = true,

@@ -53,7 +53,7 @@ fun HeaderMangaRow() {
         Spacer(modifier = Modifier.width(8.dp))
         Text("Image", modifier = Modifier.weight(1f))
         Spacer(modifier = Modifier.width(8.dp))
-        Text("Anime Title", modifier = Modifier.weight(1f))
+        Text("Manga Title", modifier = Modifier.weight(1f))
         Spacer(modifier = Modifier.width(8.dp))
         Text("Type", modifier = Modifier.width(64.dp))
         Spacer(modifier = Modifier.width(8.dp))
@@ -82,30 +82,26 @@ fun MangaRow(index: Int, manga: MyFavouriteManga, onClicked: (String) -> Unit) {
                 .padding(end = 8.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Text(manga.title, modifier = Modifier
-            .weight(1f)
-            .clickable { onClicked(manga.id.toString()) })
+        Text(
+            manga.title,
+            modifier = Modifier
+                .weight(1f)
+                .clickable { onClicked(manga.id.toString()) })
 
         Spacer(modifier = Modifier.width(8.dp))
         Text(manga.type, modifier = Modifier.width(64.dp))
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        Column {
-            Row {
-                Text(
-                    "${manga.currentChapter ?: "-"}/${manga.chapter ?: "-"}",
-                    modifier = Modifier.width(80.dp)
-                )
-            }
-            manga.volumes?.let { volumes ->
-                Row {
-                    Text(
-                        "${manga.currentVolumes}/${volumes}",
-                        modifier = Modifier.width(80.dp)
-                    )
-                }
-            }
+        Text(
+            "Chapter: ${manga.currentChapter ?: "-"}/${manga.chapter ?: "-"}",
+            modifier = Modifier.width(80.dp)
+        )
+
+        manga.volumes?.let { volumes ->
+            Text(
+                "Volume: ${manga.currentVolumes}/${volumes}", modifier = Modifier.width(80.dp)
+            )
         }
     }
 }

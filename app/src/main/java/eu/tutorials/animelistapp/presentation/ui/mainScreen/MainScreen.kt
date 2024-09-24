@@ -16,19 +16,19 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import eu.tutorials.animelistapp.presentation.ui.BottomNavigationBar
 import eu.tutorials.animelistapp.presentation.ui.LoadingScreen
-import eu.tutorials.animelistapp.presentation.ui.TopMainNavigationBar
 import eu.tutorials.animelistapp.presentation.ui.mainScreen.composables.AnimeList
 import eu.tutorials.animelistapp.presentation.ui.mainScreen.composables.MangaList
 import eu.tutorials.animelistapp.constants.enums.Anime.AnimeAgeRating
 import eu.tutorials.animelistapp.constants.enums.Anime.AnimeType
 import androidx.hilt.navigation.compose.hiltViewModel
 import eu.tutorials.animelistapp.presentation.ui.Screen
+import eu.tutorials.animelistapp.presentation.ui.TopNavigationBar
 
 @Composable
 fun MainScreen(
     navController: NavController,
     animeViewModel: AnimeViewModel = hiltViewModel(),
-    mangaViewModel: MangaViewModel = hiltViewModel()
+    mangaViewModel: MangaViewModel = hiltViewModel(),
 ) {
     var selectedTab by remember { mutableStateOf("Anime") }
     val animeUiState by animeViewModel.uiState.collectAsState()
@@ -40,16 +40,20 @@ fun MainScreen(
     var selectedRating by remember { mutableStateOf(AnimeAgeRating.EMPTY) }
 
     Scaffold(scaffoldState = scaffoldState, topBar = {
-        TopMainNavigationBar(selectedTab) { tab ->
+        TopNavigationBar(selectedTab, onTabSelected = { tab ->
             selectedTab = tab
-            if (tab == "Anime") {
-                animeViewModel.clearAnimes()
-                animeViewModel.fetchTopAnimes()
-                return@TopMainNavigationBar
+            when (tab) {
+                "Anime" -> {
+                    animeViewModel.clearAnimes()
+                    animeViewModel.fetchTopAnimes()
+                }
+
+                else -> {
+                    mangaViewModel.clearMangas()
+                    mangaViewModel.fetchTopMangas()
+                }
             }
-            mangaViewModel.clearMangas()
-            mangaViewModel.fetchTopMangas()
-        }
+        }, filter = true)
     },
         bottomBar = { BottomNavigationBar(navController) }) { innerPadding ->
         if (animeUiState.isLoading || mangaUiState.isLoading) {
@@ -63,7 +67,7 @@ fun MainScreen(
                 AnimeList(
                     animeList = animes,
                     scrollState = scrollState,
-                    onClicked ={ id-> navController.navigate(Screen.AnimeDetails.route + "/${id}")}
+                    onClicked = { id -> navController.navigate(Screen.AnimeDetails.route + "/${id}") }
                 )
                 if (remember { derivedStateOf { scrollState.layoutInfo } }.value.visibleItemsInfo.lastOrNull()?.index == animes.size - 1) {
                     animeViewModel.loadMoreAnimes()
@@ -74,7 +78,7 @@ fun MainScreen(
             MangaList(
                 mangaList = mangas,
                 scrollState = scrollState,
-                onClicked ={ id-> navController.navigate(Screen.MangaDetails.route + "/${id}")}
+                onClicked = { id -> navController.navigate(Screen.MangaDetails.route + "/${id}") }
             )
             if (remember { derivedStateOf { scrollState.layoutInfo } }.value.visibleItemsInfo.lastOrNull()?.index == mangas.size - 1) {
                 mangaViewModel.loadMoreMangas()

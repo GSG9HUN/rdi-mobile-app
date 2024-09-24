@@ -14,12 +14,13 @@ import javax.inject.Singleton
 @Singleton
 class AnimeDetailsDomain @Inject constructor(private val animeRepository: AnimeRepositoryImpl) {
     fun getAnimeDetails(
-        id: Int
+        id: Int,
     ): Flow<Resource<AnimeDetails>> {
         return flow {
             emit(Resource.Loading())
             try {
-                val animeDetails = animeRepository.getAnimeById(id)
+                val animeDetails = animeRepository.getAnimeById(id).toAnimeDetails()
+                animeRepository.saveAnimeById(animeDetailsEntity = animeDetails.toAnimeDetailEntity())
                 emit(Resource.Success(animeDetails))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
@@ -31,7 +32,13 @@ class AnimeDetailsDomain @Inject constructor(private val animeRepository: AnimeR
         return flow {
             emit(Resource.Loading())
             try {
-                val animeCharacters = animeRepository.getCharacters(animeId)
+                val animeCharacters =
+                    animeRepository.getCharacters(animeId).map { it.toAnimeCharacter() }
+                animeRepository.saveCharacters(animeCharacters.map {
+                    it.toAnimeCharacterEntity(
+                        animeId
+                    )
+                })
                 emit(Resource.Success(animeCharacters))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
@@ -43,7 +50,13 @@ class AnimeDetailsDomain @Inject constructor(private val animeRepository: AnimeR
         return flow {
             emit(Resource.Loading())
             try {
-                val animeRecommendations = animeRepository.getRecommendations(animeId)
+                val animeRecommendations =
+                    animeRepository.getRecommendations(animeId).map { it.toAnimeRecommendation() }
+                animeRepository.saveRecommendations(animeRecommendations.map {
+                    it.recommendation.toAnimeRecommendationEntity(
+                        animeId
+                    )
+                })
                 emit(Resource.Success(animeRecommendations))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
