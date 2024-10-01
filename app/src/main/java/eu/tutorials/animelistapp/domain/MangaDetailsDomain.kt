@@ -1,9 +1,9 @@
 package eu.tutorials.animelistapp.domain
 
 import eu.tutorials.animelistapp.constants.Resource
+import eu.tutorials.animelistapp.domain.model.details.Recommendation
 import eu.tutorials.animelistapp.domain.model.details.mangaDetails.MangaDetails
 import eu.tutorials.animelistapp.domain.model.details.mangaDetails.mangaCharacters.MangaCharacter
-import eu.tutorials.animelistapp.domain.model.details.mangaDetails.mangaRecommendations.MangaRecommendation
 import eu.tutorials.animelistapp.repository.MangaRepositoryImpl
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -20,7 +20,6 @@ class MangaDetailsDomain @Inject constructor(private val mangaRepository: MangaR
             emit(Resource.Loading())
             try {
                 val mangaDetails = mangaRepository.getMangaById(id).toMangaDetails()
-                mangaRepository.saveMangaDetails(mangaDetails.toMangaDetailsEntity())
                 emit(Resource.Success(mangaDetails))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
@@ -34,11 +33,6 @@ class MangaDetailsDomain @Inject constructor(private val mangaRepository: MangaR
             try {
                 val mangaCharacters =
                     mangaRepository.getCharacters(mangaId).map { it.toMangaCharacter() }
-                mangaRepository.saveCharacters(mangaCharacters.map {
-                    it.toMangaCharacterEntity(
-                        mangaId
-                    )
-                })
                 emit(Resource.Success(mangaCharacters))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
@@ -46,17 +40,12 @@ class MangaDetailsDomain @Inject constructor(private val mangaRepository: MangaR
         }
     }
 
-    fun getMangaRecommendations(mangaId: Int): Flow<Resource<List<MangaRecommendation>>> {
+    fun getMangaRecommendations(mangaId: Int): Flow<Resource<List<Recommendation>>> {
         return flow {
             emit(Resource.Loading())
             try {
                 val mangaRecommendations =
-                    mangaRepository.getRecommendations(mangaId).map { it.toMangaRecommendation() }
-                mangaRepository.saveMangaRecommendation(mangaRecommendations.map {
-                    it.recommendation.toMangaRecommendationEntity(
-                        mangaId
-                    )
-                })
+                    mangaRepository.getRecommendations(mangaId).map { it.toRecommendation() }
                 emit(Resource.Success(mangaRecommendations))
             } catch (e: Exception) {
                 emit(Resource.Error(e))

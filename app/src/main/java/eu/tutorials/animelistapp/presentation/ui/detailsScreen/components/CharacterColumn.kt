@@ -29,7 +29,7 @@ fun CharacterColumn(modifier: Modifier, character: Character) {
         modifier = modifier
     ) {
         Image(
-            painter = rememberAsyncImagePainter(character.imageUrl),
+            painter = rememberAsyncImagePainter(character.image.imageUrl),
             contentDescription = character.name,
             modifier = Modifier
                 .size(80.dp)

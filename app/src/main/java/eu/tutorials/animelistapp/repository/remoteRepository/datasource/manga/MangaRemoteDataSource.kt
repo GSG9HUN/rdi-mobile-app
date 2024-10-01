@@ -14,7 +14,7 @@ class MangaRemoteDataSource @Inject constructor(
     suspend fun getMangaCharacters(mangaId: Int) = apiService.getMangaCharacters(mangaId).data
 
     suspend fun getMangaRecommendations(mangaId: Int) =
-        apiService.getMangaRecommendations(mangaId).data
+        apiService.getMangaRecommendations(mangaId).data.map { it.toRecommendationDto() }
 
     suspend fun getMangaSearch(query: String) = apiService.getMangaSearch(query).data
 }

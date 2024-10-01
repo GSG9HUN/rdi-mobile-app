@@ -31,7 +31,7 @@ fun MangaHeader(mangaDetails: MangaDetails) {
             .height(200.dp)
     ) {
         Image(
-            painter = rememberAsyncImagePainter(mangaDetails.image),
+            painter = rememberAsyncImagePainter(mangaDetails.images.imageUrl),
             contentDescription = mangaDetails.title,
             modifier = Modifier
                 .fillMaxHeight()

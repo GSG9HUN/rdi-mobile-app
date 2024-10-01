@@ -17,7 +17,7 @@ fun AnimeList(
             ContentCard(
                 title = anime.title,
                 description = anime.description,
-                imageUrl = anime.imageUrl,
+                imageUrl = anime.image.imageUrl,
                 rating = anime.rating,
                 episodes = anime.episodes,
                 id = anime.id.toString(),

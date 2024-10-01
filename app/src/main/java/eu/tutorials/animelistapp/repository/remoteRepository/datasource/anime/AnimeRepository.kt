@@ -1,9 +1,9 @@
 package eu.tutorials.animelistapp.repository.remoteRepository.datasource.anime
 
 import eu.tutorials.animelistapp.repository.remoteRepository.model.anime.AnimeDto
+import eu.tutorials.animelistapp.repository.remoteRepository.model.details.RecommendationDto
 import eu.tutorials.animelistapp.repository.remoteRepository.model.details.animeDetails.AnimeDetailsDto
 import eu.tutorials.animelistapp.repository.remoteRepository.model.details.animeDetails.animeCharacters.AnimeCharactersDto
-import eu.tutorials.animelistapp.repository.remoteRepository.model.details.animeDetails.animeRecommendations.AnimeRecommendationDto
 
 interface AnimeRepository {
     suspend fun getTopAnimes(
@@ -18,7 +18,7 @@ interface AnimeRepository {
 
     suspend fun getCharacters(animeId: Int): List<AnimeCharactersDto>
 
-    suspend fun getRecommendations(animeId: Int): List<AnimeRecommendationDto>
+    suspend fun getRecommendations(animeId: Int): List<RecommendationDto>
 
     suspend fun getAnimeSearch(query: String): List<AnimeDto>
 }

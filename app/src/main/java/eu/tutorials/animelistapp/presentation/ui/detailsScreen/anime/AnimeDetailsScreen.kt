@@ -70,7 +70,7 @@ fun AnimeDetailsScreen(
                 animeDetailsUiState.animeRecommendations?.let { animeRecommendations ->
                     item {
                         RecommendationsSection(
-                            animeRecommendations.map { it.recommendation },
+                            animeRecommendations,
                             onClicked={id-> navController.navigate(Screen.AnimeDetails.route+"/${id}")}
                         )
                     }

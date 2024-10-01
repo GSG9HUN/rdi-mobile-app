@@ -13,7 +13,7 @@ fun MangaList(mangaList: List<Manga>, scrollState: LazyListState, onClicked: (St
             ContentCard(
                 title = manga.title,
                 description = manga.description,
-                imageUrl = manga.imageUrl,
+                imageUrl = manga.image.imageUrl,
                 rating = manga.rating,
                 id = manga.id.toString(),
                 onClicked = onClicked

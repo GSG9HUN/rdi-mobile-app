@@ -1,12 +1,15 @@
 package eu.tutorials.animelistapp.repository.remoteRepository.model.details.animeDetails
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import eu.tutorials.animelistapp.domain.model.details.animeDetails.AnimeDetails
 import eu.tutorials.animelistapp.repository.remoteRepository.model.ImagesDto
 import eu.tutorials.animelistapp.repository.remoteRepository.model.details.GenreDto
 import eu.tutorials.animelistapp.repository.remoteRepository.model.details.ThemeDto
 
+@Entity("anime_details")
 data class AnimeDetailsDto(
-    val mal_id: Int,
+    @PrimaryKey val mal_id: Int,
     val url: String,
     val images: ImagesDto,
     val trailer: TrailerDto?,
@@ -29,13 +32,13 @@ data class AnimeDetailsDto(
     val producers: List<ProducerDto>,
     val studios: List<StudioDto>,
     val genres: List<GenreDto>,
-    val themes: List<ThemeDto>
+    val themes: List<ThemeDto>?
 ) {
     fun toAnimeDetails() = AnimeDetails(
         id = mal_id,
         url = url,
-        image = images.jpg.image_url,
-        trailer = trailer?.embed_url,
+        image = images.toImage(),
+        trailer = trailer,
         title = title,
         type = type,
         episodes = episodes,
@@ -58,7 +61,7 @@ data class AnimeDetailsDto(
         { it.toStudio() },
         genres = genres.map
         { it.toGenre() },
-        themes = themes.map
+        themes = themes?.map
         { it.toThemes() }
     )
 }

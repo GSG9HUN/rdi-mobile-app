@@ -27,7 +27,7 @@ fun VoiceActorColumn(modifier: Modifier,voiceActor: VoiceActor) {
         modifier = modifier
     ) {
         Image(
-            painter = rememberAsyncImagePainter(voiceActor.person.imageUrl),
+            painter = rememberAsyncImagePainter(voiceActor.person.image.imageUrl),
             contentDescription = voiceActor.person.name,
             modifier = Modifier
                 .size(80.dp)

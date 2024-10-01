@@ -15,7 +15,6 @@ class MangaDomain @Inject constructor(private val mangaRepository: MangaReposito
             emit(Resource.Loading())
             try {
                 val mangas = mangaRepository.getTopMangas(type, filter, page).map { it.toManga() }
-                mangaRepository.saveMangas(mangas.map { it.toMangaEntity() })
                 emit(Resource.Success(mangas))
             } catch (e: Exception) {
                 emit(Resource.Error(e))
