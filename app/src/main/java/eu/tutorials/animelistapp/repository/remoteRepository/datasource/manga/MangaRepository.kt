@@ -1,8 +1,8 @@
 package eu.tutorials.animelistapp.repository.remoteRepository.datasource.manga
 
+import eu.tutorials.animelistapp.repository.remoteRepository.model.details.RecommendationDto
 import eu.tutorials.animelistapp.repository.remoteRepository.model.details.mangaDetails.MangaDetailsDto
 import eu.tutorials.animelistapp.repository.remoteRepository.model.details.mangaDetails.mangaCharacters.MangaCharacterDto
-import eu.tutorials.animelistapp.repository.remoteRepository.model.details.mangaDetails.mangaRecommendations.MangaRecommendationDto
 import eu.tutorials.animelistapp.repository.remoteRepository.model.manga.MangaDto
 
 interface MangaRepository {
@@ -12,7 +12,7 @@ interface MangaRepository {
 
     suspend fun getCharacters(mangaId: Int): List<MangaCharacterDto>
 
-    suspend fun getRecommendations(mangaId: Int): List<MangaRecommendationDto>
+    suspend fun getRecommendations(mangaId: Int): List<RecommendationDto>
 
     suspend fun getMangaSearch(query: String): List<MangaDto>
 }

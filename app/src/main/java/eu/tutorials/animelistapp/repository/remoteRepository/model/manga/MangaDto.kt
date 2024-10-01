@@ -1,10 +1,13 @@
 package eu.tutorials.animelistapp.repository.remoteRepository.model.manga
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import eu.tutorials.animelistapp.domain.model.Manga
 import eu.tutorials.animelistapp.repository.remoteRepository.model.ImagesDto
 
+@Entity(tableName = "mangas")
 data class MangaDto(
-    val mal_id: String,
+    @PrimaryKey val mal_id: String,
     val title: String,
     val synopsis: String?,
     val images: ImagesDto,
@@ -14,7 +17,7 @@ data class MangaDto(
         id = mal_id.toInt(),
         title = title,
         description = synopsis,
-        imageUrl = images.jpg.image_url,
+        image = images.toImage(),
         rating = score
     )
 }

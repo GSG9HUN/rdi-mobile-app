@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import okhttp3.Interceptor.Companion.invoke
 import javax.inject.Inject
 
 @HiltViewModel
@@ -239,7 +238,7 @@ class AnimeDetailsViewModel @Inject constructor(
             val myFavouriteAnime =
                 MyFavouriteAnime(
                     id = id,
-                    imageUrl = animeDetails.image,
+                    imageUrl = animeDetails.image.imageUrl,
                     title = animeDetails.title,
                     type = animeDetails.type,
                     currentEpisode = currentEpisode

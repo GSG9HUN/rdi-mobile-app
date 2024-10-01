@@ -4,5 +4,5 @@ import eu.tutorials.animelistapp.domain.model.details.animeDetails.animeCharacte
 import eu.tutorials.animelistapp.repository.remoteRepository.model.ImagesDto
 
 data class PersonDto(val mal_id: Int, val url: String, val images: ImagesDto, val name: String) {
-    fun toPerson() = Person(id = mal_id, url = url, imageUrl = images.jpg.image_url, name = name)
+    fun toPerson() = Person(id = mal_id, url = url, image = images.toImage(), name = name)
 }

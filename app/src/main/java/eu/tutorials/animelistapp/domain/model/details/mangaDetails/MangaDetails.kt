@@ -1,13 +1,13 @@
 package eu.tutorials.animelistapp.domain.model.details.mangaDetails
 
+import eu.tutorials.animelistapp.domain.model.Image
 import eu.tutorials.animelistapp.domain.model.details.Genre
 import eu.tutorials.animelistapp.domain.model.details.Theme
-import eu.tutorials.animelistapp.repository.localRepository.database.details.mangaDetails.MangaDetailsEntity
 
 data class MangaDetails(
     val id: Int,
     val url: String,
-    val image: String,
+    val images: Image,
     val title: String,
     val type: String,
     val chapters: Int?,
@@ -22,26 +22,5 @@ data class MangaDetails(
     val favorites: Int,
     val description: String,
     val genres: List<Genre>,
-    val themes: List<Theme>?
-) {
-    fun toMangaDetailsEntity() = MangaDetailsEntity(
-        id = id,
-        url = url,
-        image = image,
-        title = title,
-        type = type,
-        chapters = chapters,
-        volumes = volumes,
-        status = status,
-        published = published,
-        score = score,
-        scoredBy = scoredBy,
-        rank = rank,
-        popularity = popularity,
-        members = members,
-        favorites = favorites,
-        description = description,
-        genres = genres,
-        themes = themes
-    )
-}
+    val themes: List<Theme>?,
+)

@@ -18,7 +18,6 @@ class AnimeDomain @Inject constructor(private val animeRepository: AnimeReposito
             try {
                 val animes = animeRepository.getTopAnimes(type, filter, rating, sfw, page)
                     .map { it.toAnime() }
-                animeRepository.saveAnimes(animes.map { it.toAnimeEntity() })
                 emit(Resource.Success(animes))
             } catch (e: Exception) {
                 emit(Resource.Error(e))

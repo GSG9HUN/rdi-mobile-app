@@ -37,7 +37,7 @@ fun RecommendationCard(recommendation: Recommendation, onClicked: (String) -> Un
             modifier = Modifier.fillMaxSize()
         ) {
             Image(
-                painter = rememberAsyncImagePainter(recommendation.imageUrl),
+                painter = rememberAsyncImagePainter(recommendation.images.imageUrl),
                 contentDescription = recommendation.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

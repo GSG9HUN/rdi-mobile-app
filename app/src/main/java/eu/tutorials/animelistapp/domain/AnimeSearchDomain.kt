@@ -15,7 +15,6 @@ class AnimeSearchDomain @Inject constructor(val animeRepository: AnimeRepository
             emit(Resource.Loading())
             try {
                 val searchedAnimeList = animeRepository.getAnimeSearch(query).map { it.toAnime() }
-                animeRepository.saveAnimes(searchedAnimeList.map { it.toAnimeEntity() })
                 emit(Resource.Success(searchedAnimeList))
             } catch (e: Exception) {
                 emit(Resource.Error(e))

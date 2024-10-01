@@ -245,7 +245,7 @@ class MangaDetailsViewModel @Inject constructor(
             val myFavouriteManga =
                 MyFavouriteManga(
                     id = id,
-                    imageUrl = mangaDetails.image,
+                    imageUrl = mangaDetails.images.imageUrl,
                     title = mangaDetails.title,
                     type = mangaDetails.type,
                     currentChapter = currentChapter

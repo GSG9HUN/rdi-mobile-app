@@ -81,7 +81,7 @@ fun MangaDetailsScreen(
                     mangaDetailsUiState.mangaRecommendations?.let { mangaRecommendations ->
                         item {
                             RecommendationsSection(
-                                mangaRecommendations.map { it.recommendation },
+                                mangaRecommendations,
                                 onClicked = { id -> navController.navigate(Screen.MangaDetails.route + "/$id") }
                             )
                         }
