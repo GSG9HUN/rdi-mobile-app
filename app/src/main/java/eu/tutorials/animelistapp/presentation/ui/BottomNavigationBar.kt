@@ -16,16 +16,21 @@ fun BottomNavigationBar(navController: NavController) {
     BottomNavigation {
         BottomNavigationItem(icon = { Icon(Icons.Default.Search, contentDescription = "Home") },
             label = { Text("Search") },
-            selected = false,
-            onClick = { navController.navigate(Screen.BottomScreen.Search.bRoute) })
+            selected = navController.currentBackStackEntry?.destination?.route == Screen.BottomScreen.Search.bottomRoute,
+            onClick = { navController.navigate(Screen.BottomScreen.Search.bottomRoute) })
 
         BottomNavigationItem(icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
             label = { Text("Home") },
-            selected = true,
-            onClick = { navController.navigate(Screen.BottomScreen.Home.bRoute) })
+            selected = navController.currentBackStackEntry?.destination?.route == Screen.BottomScreen.Home.bottomRoute,
+            onClick = { navController.navigate(Screen.BottomScreen.Home.bottomRoute) })
         BottomNavigationItem(icon = { Icon(Icons.Default.Person, contentDescription = "My Lists") },
             label = { Text("My Lists") },
-            selected = false,
-            onClick = { navController.navigate(Screen.BottomScreen.MyLists.bRoute) })
+            selected = navController.currentBackStackEntry?.destination?.route == Screen.BottomScreen.MyLists.bottomRoute,
+            onClick = { navController.navigate(Screen.BottomScreen.MyLists.bottomRoute) })
+        BottomNavigationItem(icon = { Icon(Icons.Default.Person, contentDescription = "My Lists") },
+            label = { Text("My Profile") },
+            selected = navController.currentBackStackEntry?.destination?.route == Screen.BottomScreen.MyProfile.bottomRoute,
+            onClick = { navController.navigate(Screen.BottomScreen.MyProfile.bottomRoute) })
+
     }
 }

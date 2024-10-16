@@ -12,6 +12,9 @@ abstract class MyFavouriteMangaDao {
     @Query("Select * from my_list_manga")
     abstract suspend fun getMyFavouriteMangaList(): List<MyFavouriteMangaEntity>
 
+    @Query("Select * from my_list_manga limit :limit")
+    abstract suspend fun getMyFavouriteMangaListWithLimit(limit: Int): List<MyFavouriteMangaEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertToMyFavouriteList(myFavouriteMangaEntity: MyFavouriteMangaEntity)
 

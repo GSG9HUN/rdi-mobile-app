@@ -15,6 +15,8 @@ import eu.tutorials.animelistapp.repository.localRepository.database.myFavourite
 import eu.tutorials.animelistapp.repository.localRepository.database.myFavouriteList.anime.MyFavouriteAnimeEntity
 import eu.tutorials.animelistapp.repository.localRepository.database.myFavouriteList.manga.MyFavouriteMangaDao
 import eu.tutorials.animelistapp.repository.localRepository.database.myFavouriteList.manga.MyFavouriteMangaEntity
+import eu.tutorials.animelistapp.repository.localRepository.database.myProfile.MyProfileDao
+import eu.tutorials.animelistapp.repository.localRepository.database.myProfile.MyProfileDataEntity
 import eu.tutorials.animelistapp.repository.remoteRepository.model.anime.AnimeDto
 import eu.tutorials.animelistapp.repository.remoteRepository.model.details.RecommendationDto
 import eu.tutorials.animelistapp.repository.remoteRepository.model.details.animeDetails.AnimeDetailsDto
@@ -34,9 +36,10 @@ import eu.tutorials.animelistapp.repository.remoteRepository.model.manga.MangaDt
         MangaCharacterDto::class,
         RecommendationDto::class,
         MyFavouriteAnimeEntity::class,
-        MyFavouriteMangaEntity::class
+        MyFavouriteMangaEntity::class,
+        MyProfileDataEntity::class
     ],
-    version = 17,
+    version = 21,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -51,4 +54,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun mangaRecommendationDao(): MangaRecommendationDao
     abstract fun myFavouriteAnimeDao(): MyFavouriteAnimeDao
     abstract fun myFavouriteMangaDao(): MyFavouriteMangaDao
+    abstract fun myProfileDao(): MyProfileDao
 }

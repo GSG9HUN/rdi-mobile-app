@@ -43,6 +43,9 @@ class AnimeLocalDataSource @Inject constructor(
 
     suspend fun getMyFavouriteAnimeList() = myFavouriteAnimeDao.getMyFavouriteList()
 
+    suspend fun getMyFavouriteAnimeListWithLimit(limit: Int) =
+        myFavouriteAnimeDao.getMyFavouriteListWithLimit(limit)
+
     suspend fun insertMyFavouriteAnime(myFavouriteAnimeEntity: MyFavouriteAnimeEntity) =
         myFavouriteAnimeDao.insertToMyFavouriteAnimeList(myFavouriteAnimeEntity = myFavouriteAnimeEntity)
 

@@ -5,5 +5,5 @@ data class Manga(
     val title: String,
     val description: String?,
     val image: Image,
-    val rating: Double
+    val rating: Double,
 )

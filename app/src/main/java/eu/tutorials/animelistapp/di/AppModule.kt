@@ -12,11 +12,13 @@ import eu.tutorials.animelistapp.repository.remoteRepository.datasource.anime.An
 import eu.tutorials.animelistapp.repository.remoteRepository.datasource.manga.MangaRemoteDataSource
 import eu.tutorials.animelistapp.repository.AnimeRepositoryImpl
 import eu.tutorials.animelistapp.repository.MangaRepositoryImpl
+import eu.tutorials.animelistapp.repository.MyProfileRepositoryImpl
 import eu.tutorials.animelistapp.repository.remoteRepository.datasource.anime.AnimeRepository
 import eu.tutorials.animelistapp.repository.remoteRepository.datasource.manga.MangaRepository
 import eu.tutorials.animelistapp.repository.localRepository.database.AppDatabase
 import eu.tutorials.animelistapp.repository.localRepository.datasource.anime.AnimeLocalDataSource
 import eu.tutorials.animelistapp.repository.localRepository.datasource.manga.MangaLocalDataSource
+import eu.tutorials.animelistapp.repository.localRepository.datasource.myProfile.MyProfileLocalDataSource
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -33,6 +35,16 @@ object AppModule {
     ): AnimeRepository {
         return AnimeRepositoryImpl(
             animeRemoteDataSource, animeLocalDataSource
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideMyProfileRepository(
+        myProfileLocalDataSource: MyProfileLocalDataSource,
+    ): MyProfileRepositoryImpl {
+        return MyProfileRepositoryImpl(
+            myProfileLocalDataSource
         )
     }
 
@@ -88,6 +100,9 @@ object AppModule {
 
     @Provides
     fun provideMyFavouriteMangaDao(database: AppDatabase) = database.myFavouriteMangaDao()
+
+    @Provides
+    fun provideMyProfileDao(database: AppDatabase) = database.myProfileDao()
 
     @Provides
     @Singleton

@@ -11,7 +11,7 @@ import eu.tutorials.animelistapp.repository.remoteRepository.model.details.anime
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-class AnimeRepositoryImpl @Inject constructor(
+open class AnimeRepositoryImpl @Inject constructor(
     private val animeRemoteDataSource: AnimeRemoteDataSource,
     private val animeLocalDataSource: AnimeLocalDataSource,
 ) : AnimeRepository {
@@ -51,7 +51,8 @@ class AnimeRepositoryImpl @Inject constructor(
             animeRemoteDataSource.getAnimeCharacters(animeId)
                 .also { characters ->
                     characters.forEach { it.animeId = animeId }
-                    saveCharacters(characters) }
+                    saveCharacters(characters)
+                }
         } catch (e: UnknownHostException) {
             animeLocalDataSource.getAllCharacterByAnimeId(animeId)
         }
@@ -65,7 +66,7 @@ class AnimeRepositoryImpl @Inject constructor(
 
     override suspend fun getRecommendations(animeId: Int): List<RecommendationDto> {
         val animeRecommendations = try {
-            animeRemoteDataSource.getAnimeRecommendations(animeId).also {recommendations ->
+            animeRemoteDataSource.getAnimeRecommendations(animeId).also { recommendations ->
                 recommendations.forEach { it.id = animeId }
                 saveRecommendations(recommendations)
             }
@@ -90,6 +91,9 @@ class AnimeRepositoryImpl @Inject constructor(
 
     suspend fun getMyFavouriteAnimeList(): List<MyFavouriteAnimeEntity> =
         animeLocalDataSource.getMyFavouriteAnimeList()
+
+    suspend fun getMyFavouriteAnimeListWithLimit(limit: Int): List<MyFavouriteAnimeEntity> =
+        animeLocalDataSource.getMyFavouriteAnimeListWithLimit(limit)
 
     suspend fun insertMyFavouriteAnime(myFavouriteAnimeEntity: MyFavouriteAnimeEntity) =
         animeLocalDataSource.insertMyFavouriteAnime(myFavouriteAnimeEntity)

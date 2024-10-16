@@ -5,6 +5,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GetMyFavouriteAnimeUseCase @Inject constructor(private val myFavouriteAnimeDomain: MyFavouriteAnimeDomain) {
+open class GetMyFavouriteAnimeUseCase @Inject constructor(private val myFavouriteAnimeDomain: MyFavouriteAnimeDomain) {
     operator fun invoke() = myFavouriteAnimeDomain.getMyFavouriteAnime()
 }
