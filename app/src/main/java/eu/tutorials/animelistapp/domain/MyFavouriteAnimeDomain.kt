@@ -9,13 +9,18 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MyFavouriteAnimeDomain @Inject constructor(private val animeRepository: AnimeRepositoryImpl) {
-    fun getMyFavouriteAnime(): Flow<Resource<List<MyFavouriteAnime>>> {
+open class MyFavouriteAnimeDomain @Inject constructor(private val animeRepository: AnimeRepositoryImpl) {
+    fun getMyFavouriteAnime(limit: Int? = null): Flow<Resource<List<MyFavouriteAnime>>> {
         return flow {
             emit(Resource.Loading())
             try {
-                val myFavouriteAnime =
-                    animeRepository.getMyFavouriteAnimeList().map { it.toMyFavouriteAnime() }
+                val myFavouriteAnime = when (limit) {
+                    null ->
+                        animeRepository.getMyFavouriteAnimeList().map { it.toMyFavouriteAnime() }
+
+                    else -> animeRepository.getMyFavouriteAnimeListWithLimit(limit)
+                        .map { it.toMyFavouriteAnime() }
+                }
                 emit(Resource.Success(myFavouriteAnime))
             } catch (e: Exception) {
                 emit(Resource.Error(e))

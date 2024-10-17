@@ -9,6 +9,17 @@ android {
     namespace = "eu.tutorials.animelistapp"
     compileSdk = 34
 
+    packaging {
+        resources {
+            excludes += "/META-INF/LICENSE.md"
+            excludes += "/META-INF/DEPENDENCIES"
+            excludes += "/META-INF/LICENSE"
+            excludes += "/META-INF/LICENSE.txt"
+            excludes += "/META-INF/NOTICE"
+            excludes += "/META-INF/NOTICE.txt"
+            excludes += "/META-INF/LICENSE-notice.md"
+        }
+    }
     defaultConfig {
         applicationId = "eu.tutorials.animelistapp"
         minSdk = 24
@@ -53,7 +64,7 @@ android {
 
 dependencies {
 
- // Jetpack Compose
+    // Jetpack Compose
     implementation(libs.ui)
     implementation(libs.androidx.material)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -61,6 +72,8 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.recyclerview)
+    androidTestImplementation(libs.junit.jupiter)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
     // Room Database
@@ -68,7 +81,6 @@ dependencies {
     kapt(libs.androidx.room.runtime)
     kapt("androidx.room:room-compiler:2.6.1")
     implementation(libs.androidx.room.ktx)
-
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -79,6 +91,16 @@ dependencies {
     //imageLoader
     implementation(libs.coil.compose)
 
+    //glide
+    implementation(libs.glide)
+    kapt(libs.compiler)
+
+    // teszt
+    testImplementation(libs.junit)
+    implementation("org.mockito:mockito-android:5.14.1")
+    testImplementation("org.mockito:mockito-core:2.24.5")
+    testImplementation("org.mockito:mockito-inline:4.6.1")
+    androidTestImplementation("org.mockito:mockito-android:2.24.5")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -88,7 +110,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

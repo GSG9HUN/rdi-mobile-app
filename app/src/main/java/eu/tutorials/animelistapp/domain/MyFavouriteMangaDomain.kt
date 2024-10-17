@@ -9,13 +9,17 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MyFavouriteMangaDomain @Inject constructor(private val mangaRepository: MangaRepositoryImpl) {
-    fun getMyFavouriteManga(): Flow<Resource<List<MyFavouriteManga>>> {
+open class MyFavouriteMangaDomain @Inject constructor(private val mangaRepository: MangaRepositoryImpl) {
+    fun getMyFavouriteManga(limit: Int? = null): Flow<Resource<List<MyFavouriteManga>>> {
         return flow {
             emit(Resource.Loading())
             try {
-                val myFavouriteManga =
-                    mangaRepository.getMyFavouriteManga().map { it.toMyFavouriteManga() }
+                val myFavouriteManga = when (limit) {
+                    null -> mangaRepository.getMyFavouriteManga().map { it.toMyFavouriteManga() }
+                    else -> mangaRepository.getMyFavouriteMangaWithLimit(limit = limit)
+                        .map { it.toMyFavouriteManga() }
+                }
+
                 emit(Resource.Success(myFavouriteManga))
             } catch (e: Exception) {
                 emit(Resource.Error(e))

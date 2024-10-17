@@ -88,10 +88,14 @@ class MangaRepositoryImpl @Inject constructor(
     suspend fun getMyFavouriteManga(): List<MyFavouriteMangaEntity> =
         mangaLocalDataSource.getMyFavouriteManga()
 
+    suspend fun getMyFavouriteMangaWithLimit(limit: Int) =
+        mangaLocalDataSource.getMyFavouriteMangaWithLimit(limit)
+
     suspend fun insertMyFavouriteManga(myFavouriteMangaEntity: MyFavouriteMangaEntity) =
         mangaLocalDataSource.insertMyFavouriteManga(myFavouriteMangaEntity)
 
     suspend fun getMyFavouriteMangaStatus(id: Int) =
         mangaLocalDataSource.getMyFavouriteMangaById(id)
+
 
 }
