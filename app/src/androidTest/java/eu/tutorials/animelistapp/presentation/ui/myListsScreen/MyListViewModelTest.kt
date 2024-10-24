@@ -1,18 +1,20 @@
 package eu.tutorials.animelistapp.presentation.ui.myListsScreen
 
+import eu.tutorials.animelistapp.constants.Resource
 import eu.tutorials.animelistapp.constants.enums.myFavouriteList.MyFavouriteAnimeStatus
 import eu.tutorials.animelistapp.constants.enums.myFavouriteList.MyFavouriteMangaStatus
-import eu.tutorials.animelistapp.domain.MyFavouriteAnimeDomain
-import eu.tutorials.animelistapp.domain.MyFavouriteMangaDomain
+import eu.tutorials.animelistapp.domain.myAnimeFavouriteList.MyFavouriteAnimeDomain
 import eu.tutorials.animelistapp.domain.model.myFavouriteList.anime.MyFavouriteAnime
 import eu.tutorials.animelistapp.domain.model.myFavouriteList.manga.MyFavouriteManga
-import eu.tutorials.animelistapp.domain.usecase.myFavouriteList.anime.GetMyFavouriteAnimeUseCase
-import eu.tutorials.animelistapp.domain.usecase.myFavouriteList.manga.GetMyFavouriteMangaUseCase
+import eu.tutorials.animelistapp.domain.myAnimeFavouriteList.useCase.GetMyFavouriteAnimeUseCase
+import eu.tutorials.animelistapp.domain.myMangaFavouriteList.MyFavouriteMangaDomain
+import eu.tutorials.animelistapp.domain.myMangaFavouriteList.useCase.GetMyFavouriteMangaUseCase
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -21,6 +23,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 import java.lang.reflect.Field
 
 
@@ -184,10 +187,14 @@ class MyListViewModelTest {
             )
         )
 
+        `when`(animeDomain.getMyFavouriteAnime()).thenReturn(flowOf(Resource.Success(animeList)))
+        `when`(mangaDomain.getMyFavouriteManga()).thenReturn(flowOf(Resource.Success(mangaList)))
+
         val getMyFavouriteMangaUseCase =
             GetMyFavouriteMangaUseCase(mangaDomain)
         val getMyFavouriteAnimeUseCase =
             GetMyFavouriteAnimeUseCase(animeDomain)
+
 
         viewModel = MyListViewModel(
             getMyFavouriteAnimeUseCase = getMyFavouriteAnimeUseCase,

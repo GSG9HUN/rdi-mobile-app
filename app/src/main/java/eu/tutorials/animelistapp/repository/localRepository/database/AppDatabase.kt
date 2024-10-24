@@ -39,7 +39,7 @@ import eu.tutorials.animelistapp.repository.remoteRepository.model.manga.MangaDt
         MyFavouriteMangaEntity::class,
         MyProfileDataEntity::class
     ],
-    version = 21,
+    version = 22,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

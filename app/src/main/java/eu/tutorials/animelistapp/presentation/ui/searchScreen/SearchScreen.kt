@@ -17,8 +17,8 @@ import androidx.navigation.NavController
 import eu.tutorials.animelistapp.presentation.ui.BottomNavigationBar
 import eu.tutorials.animelistapp.presentation.ui.Screen
 import eu.tutorials.animelistapp.presentation.ui.TopNavigationBar
-import eu.tutorials.animelistapp.presentation.ui.mainScreen.composables.AnimeList
-import eu.tutorials.animelistapp.presentation.ui.mainScreen.composables.MangaList
+import eu.tutorials.animelistapp.presentation.ui.mainScreen.components.AnimeList
+import eu.tutorials.animelistapp.presentation.ui.mainScreen.components.MangaList
 
 @Composable
 fun SearchScreen(

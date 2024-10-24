@@ -6,8 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.tutorials.animelistapp.constants.Resource
 import eu.tutorials.animelistapp.constants.enums.myFavouriteList.MyFavouriteAnimeStatus
 import eu.tutorials.animelistapp.constants.enums.myFavouriteList.MyFavouriteMangaStatus
-import eu.tutorials.animelistapp.domain.usecase.myFavouriteList.anime.GetMyFavouriteAnimeUseCase
-import eu.tutorials.animelistapp.domain.usecase.myFavouriteList.manga.GetMyFavouriteMangaUseCase
+import eu.tutorials.animelistapp.domain.myAnimeFavouriteList.useCase.GetMyFavouriteAnimeUseCase
+import eu.tutorials.animelistapp.domain.myMangaFavouriteList.useCase.GetMyFavouriteMangaUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

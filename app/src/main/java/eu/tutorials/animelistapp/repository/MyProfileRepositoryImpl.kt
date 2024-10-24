@@ -5,9 +5,10 @@ import eu.tutorials.animelistapp.repository.localRepository.datasource.myProfile
 import javax.inject.Inject
 
 class MyProfileRepositoryImpl @Inject constructor(
-    private val myProfileLocalDataSource: MyProfileLocalDataSource) {
-    suspend fun getMyProfileData() = myProfileLocalDataSource.getMyProfileData()
+    private val myProfileLocalDataSource: MyProfileLocalDataSource,
+) : MyProfileRepository {
+    override suspend fun getMyProfileData() = myProfileLocalDataSource.getMyProfileData()
 
-    suspend fun insertMyProfileData(myProfileDataEntity: MyProfileDataEntity) =
+    override suspend fun insertMyProfileData(myProfileDataEntity: MyProfileDataEntity) =
         myProfileLocalDataSource.insertMyProfileData(myProfileDataEntity = myProfileDataEntity)
 }

@@ -2,7 +2,6 @@ package eu.tutorials.animelistapp.repository
 
 import eu.tutorials.animelistapp.repository.remoteRepository.datasource.manga.MangaRemoteDataSource
 import eu.tutorials.animelistapp.repository.localRepository.database.myFavouriteList.manga.MyFavouriteMangaEntity
-import eu.tutorials.animelistapp.repository.remoteRepository.datasource.manga.MangaRepository
 import eu.tutorials.animelistapp.repository.localRepository.datasource.manga.MangaLocalDataSource
 import eu.tutorials.animelistapp.repository.remoteRepository.model.details.RecommendationDto
 import eu.tutorials.animelistapp.repository.remoteRepository.model.details.mangaDetails.MangaDetailsDto
@@ -26,7 +25,7 @@ class MangaRepositoryImpl @Inject constructor(
         return remoteMangas
     }
 
-    suspend fun saveMangas(mangas: List<MangaDto>) {
+    override suspend fun saveMangas(mangas: List<MangaDto>) {
         mangaLocalDataSource.saveMangas(mangas)
     }
 
@@ -39,7 +38,7 @@ class MangaRepositoryImpl @Inject constructor(
         return remoteMangaDetails
     }
 
-    suspend fun saveMangaDetails(mangaDetails: MangaDetailsDto) {
+    override suspend fun saveMangaDetails(mangaDetails: MangaDetailsDto) {
         mangaLocalDataSource.saveMangaDetails(mangaDetails)
     }
 
@@ -55,7 +54,7 @@ class MangaRepositoryImpl @Inject constructor(
         return remoteMangaCharacters
     }
 
-    suspend fun saveCharacters(characters: List<MangaCharacterDto>) {
+    override suspend fun saveCharacters(characters: List<MangaCharacterDto>) {
         mangaLocalDataSource.saveMangaCharacters(characters)
     }
 
@@ -72,7 +71,7 @@ class MangaRepositoryImpl @Inject constructor(
         return mangaRecommendations
     }
 
-    suspend fun saveMangaRecommendation(recommendation: List<RecommendationDto>) {
+    override suspend fun saveMangaRecommendation(recommendation: List<RecommendationDto>) {
         mangaLocalDataSource.saveMangaRecommendations(recommendation)
     }
 
@@ -85,17 +84,16 @@ class MangaRepositoryImpl @Inject constructor(
         return remoteSearchManga
     }
 
-    suspend fun getMyFavouriteManga(): List<MyFavouriteMangaEntity> =
+    override suspend fun getMyFavouriteManga(): List<MyFavouriteMangaEntity> =
         mangaLocalDataSource.getMyFavouriteManga()
 
-    suspend fun getMyFavouriteMangaWithLimit(limit: Int) =
+    override suspend fun getMyFavouriteMangaWithLimit(limit: Int) =
         mangaLocalDataSource.getMyFavouriteMangaWithLimit(limit)
 
-    suspend fun insertMyFavouriteManga(myFavouriteMangaEntity: MyFavouriteMangaEntity) =
+    override suspend fun insertMyFavouriteManga(myFavouriteMangaEntity: MyFavouriteMangaEntity) =
         mangaLocalDataSource.insertMyFavouriteManga(myFavouriteMangaEntity)
 
-    suspend fun getMyFavouriteMangaStatus(id: Int) =
+    override suspend fun getMyFavouriteMangaStatus(id: Int) =
         mangaLocalDataSource.getMyFavouriteMangaById(id)
-
 
 }

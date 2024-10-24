@@ -2,7 +2,6 @@ package eu.tutorials.animelistapp.repository
 
 import eu.tutorials.animelistapp.repository.remoteRepository.datasource.anime.AnimeRemoteDataSource
 import eu.tutorials.animelistapp.repository.localRepository.database.myFavouriteList.anime.MyFavouriteAnimeEntity
-import eu.tutorials.animelistapp.repository.remoteRepository.datasource.anime.AnimeRepository
 import eu.tutorials.animelistapp.repository.localRepository.datasource.anime.AnimeLocalDataSource
 import eu.tutorials.animelistapp.repository.remoteRepository.model.anime.AnimeDto
 import eu.tutorials.animelistapp.repository.remoteRepository.model.details.RecommendationDto
@@ -29,7 +28,7 @@ open class AnimeRepositoryImpl @Inject constructor(
         return animes
     }
 
-    suspend fun saveAnimes(animes: List<AnimeDto>) {
+    override suspend fun saveAnimes(animes: List<AnimeDto>) {
         animeLocalDataSource.saveAnimes(animes)
     }
 
@@ -42,7 +41,7 @@ open class AnimeRepositoryImpl @Inject constructor(
         return animeDetails
     }
 
-    suspend fun saveAnimeById(animeDetailsDto: AnimeDetailsDto) {
+    override suspend fun saveAnimeById(animeDetailsDto: AnimeDetailsDto) {
         animeLocalDataSource.saveAnimeDetails(animeDetails = animeDetailsDto)
     }
 
@@ -60,7 +59,7 @@ open class AnimeRepositoryImpl @Inject constructor(
         return animeCharacters
     }
 
-    suspend fun saveCharacters(characters: List<AnimeCharactersDto>) {
+    override suspend fun saveCharacters(characters: List<AnimeCharactersDto>) {
         animeLocalDataSource.saveAnimeCharacters(characters = characters)
     }
 
@@ -76,7 +75,7 @@ open class AnimeRepositoryImpl @Inject constructor(
         return animeRecommendations
     }
 
-    suspend fun saveRecommendations(recommendations: List<RecommendationDto>) {
+    override suspend fun saveRecommendations(recommendations: List<RecommendationDto>) {
         animeLocalDataSource.saveAnimeRecommendations(recommendations)
     }
 
@@ -89,17 +88,17 @@ open class AnimeRepositoryImpl @Inject constructor(
         return animeSearch
     }
 
-    suspend fun getMyFavouriteAnimeList(): List<MyFavouriteAnimeEntity> =
+    override suspend fun getMyFavouriteAnimeList(): List<MyFavouriteAnimeEntity> =
         animeLocalDataSource.getMyFavouriteAnimeList()
 
-    suspend fun getMyFavouriteAnimeListWithLimit(limit: Int): List<MyFavouriteAnimeEntity> =
+    override suspend fun getMyFavouriteAnimeListWithLimit(limit: Int): List<MyFavouriteAnimeEntity> =
         animeLocalDataSource.getMyFavouriteAnimeListWithLimit(limit)
 
-    suspend fun insertMyFavouriteAnime(myFavouriteAnimeEntity: MyFavouriteAnimeEntity) =
+    override suspend fun insertMyFavouriteAnime(myFavouriteAnimeEntity: MyFavouriteAnimeEntity) =
         animeLocalDataSource.insertMyFavouriteAnime(myFavouriteAnimeEntity)
 
 
-    suspend fun getMyFavouriteAnimeStatus(id: Int) =
+    override suspend fun getMyFavouriteAnimeStatus(id: Int) =
         animeLocalDataSource.getMyListAnimeById(id)
 
 }

@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import eu.tutorials.animelistapp.MainActivity2
+import eu.tutorials.animelistapp.MyProfileActivity
 import eu.tutorials.animelistapp.constants.enums.myFavouriteList.MyFavouriteMangaStatus
 import eu.tutorials.animelistapp.constants.enums.myFavouriteList.MyFavouriteAnimeStatus
 import eu.tutorials.animelistapp.presentation.ui.detailsScreen.manga.MangaDetailsScreen
@@ -49,7 +49,7 @@ fun Navigation(
             MyListScreen(navController = navController)
         }
         composable(Screen.BottomScreen.MyProfile.bottomRoute) {
-            val intent = Intent(context, MainActivity2::class.java)
+            val intent = Intent(context, MyProfileActivity::class.java)
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         }

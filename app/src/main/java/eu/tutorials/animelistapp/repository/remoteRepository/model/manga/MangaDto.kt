@@ -11,13 +11,11 @@ data class MangaDto(
     val title: String,
     val synopsis: String?,
     val images: ImagesDto,
-    val score: Double,
 ) {
     fun toManga() = Manga(
         id = mal_id.toInt(),
         title = title,
         description = synopsis,
         image = images.toImage(),
-        rating = score
     )
 }

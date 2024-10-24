@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.tutorials.animelistapp.constants.Resource
-import eu.tutorials.animelistapp.domain.usecase.search.anime.GetAnimeSearchUseCase
-import eu.tutorials.animelistapp.domain.usecase.search.manga.GetMangaSearchUseCase
+import eu.tutorials.animelistapp.domain.animeSearch.useCase.GetAnimeSearchUseCase
+import eu.tutorials.animelistapp.domain.mangaSearch.useCase.GetMangaSearchUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

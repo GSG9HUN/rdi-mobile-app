@@ -7,14 +7,33 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import eu.tutorials.animelistapp.domain.anime.AnimeDomain
+import eu.tutorials.animelistapp.domain.anime.AnimeDomainImpl
+import eu.tutorials.animelistapp.domain.animeDetails.AnimeDetailsDomain
+import eu.tutorials.animelistapp.domain.animeDetails.AnimeDetailsDomainImpl
+import eu.tutorials.animelistapp.domain.animeSearch.AnimeSearchDomain
+import eu.tutorials.animelistapp.domain.animeSearch.AnimeSearchDomainImpl
+import eu.tutorials.animelistapp.domain.manga.MangaDomain
+import eu.tutorials.animelistapp.domain.manga.MangaDomainImpl
+import eu.tutorials.animelistapp.domain.mangaDetails.MangaDetailsDomain
+import eu.tutorials.animelistapp.domain.mangaDetails.MangaDetailsDomainImpl
+import eu.tutorials.animelistapp.domain.mangaSearch.MangaSearchDomain
+import eu.tutorials.animelistapp.domain.mangaSearch.MangaSearchDomainImpl
+import eu.tutorials.animelistapp.domain.myAnimeFavouriteList.MyFavouriteAnimeDomain
+import eu.tutorials.animelistapp.domain.myAnimeFavouriteList.MyFavouriteAnimeDomainImpl
+import eu.tutorials.animelistapp.domain.myMangaFavouriteList.MyFavouriteMangaDomain
+import eu.tutorials.animelistapp.domain.myMangaFavouriteList.MyFavouriteMangaDomainImpl
+import eu.tutorials.animelistapp.domain.myProfile.MyProfileDomain
+import eu.tutorials.animelistapp.domain.myProfile.MyProfileDomainImpl
 import eu.tutorials.animelistapp.repository.remoteRepository.ApiService
 import eu.tutorials.animelistapp.repository.remoteRepository.datasource.anime.AnimeRemoteDataSource
 import eu.tutorials.animelistapp.repository.remoteRepository.datasource.manga.MangaRemoteDataSource
 import eu.tutorials.animelistapp.repository.AnimeRepositoryImpl
 import eu.tutorials.animelistapp.repository.MangaRepositoryImpl
 import eu.tutorials.animelistapp.repository.MyProfileRepositoryImpl
-import eu.tutorials.animelistapp.repository.remoteRepository.datasource.anime.AnimeRepository
-import eu.tutorials.animelistapp.repository.remoteRepository.datasource.manga.MangaRepository
+import eu.tutorials.animelistapp.repository.AnimeRepository
+import eu.tutorials.animelistapp.repository.MangaRepository
+import eu.tutorials.animelistapp.repository.MyProfileRepository
 import eu.tutorials.animelistapp.repository.localRepository.database.AppDatabase
 import eu.tutorials.animelistapp.repository.localRepository.datasource.anime.AnimeLocalDataSource
 import eu.tutorials.animelistapp.repository.localRepository.datasource.manga.MangaLocalDataSource
@@ -42,7 +61,7 @@ object AppModule {
     @Singleton
     fun provideMyProfileRepository(
         myProfileLocalDataSource: MyProfileLocalDataSource,
-    ): MyProfileRepositoryImpl {
+    ): MyProfileRepository {
         return MyProfileRepositoryImpl(
             myProfileLocalDataSource
         )
@@ -57,6 +76,61 @@ object AppModule {
         return MangaRepositoryImpl(
             mangaRemoteDataSource, mangaLocalDataSource
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideAnimeDomain(animeRepository:AnimeRepository): AnimeDomain {
+        return AnimeDomainImpl(animeRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAnimeDetailsDomain(animeRepository:AnimeRepository): AnimeDetailsDomain {
+        return AnimeDetailsDomainImpl(animeRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAnimeSearchDomain(animeRepository:AnimeRepository): AnimeSearchDomain {
+        return AnimeSearchDomainImpl(animeRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMyFavouriteAnimeDomain(animeRepository:AnimeRepository): MyFavouriteAnimeDomain {
+        return MyFavouriteAnimeDomainImpl(animeRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMangaDomain(mangaRepository:MangaRepository): MangaDomain {
+        return MangaDomainImpl(mangaRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMangaDetailsDomain(mangaRepository:MangaRepository): MangaDetailsDomain {
+        return MangaDetailsDomainImpl(mangaRepository)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideMangaSearchDomain(mangaRepository:MangaRepository): MangaSearchDomain {
+        return MangaSearchDomainImpl(mangaRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMyFavouriteMangaDomain(mangaRepository:MangaRepository): MyFavouriteMangaDomain {
+        return MyFavouriteMangaDomainImpl(mangaRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMyProfileDomain(myProfileRepository: MyProfileRepository): MyProfileDomain {
+        return MyProfileDomainImpl(myProfileRepository)
     }
 
     @Provides

@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.tutorials.animelistapp.constants.Resource
 import eu.tutorials.animelistapp.domain.model.myProfile.MyProfileData
-import eu.tutorials.animelistapp.domain.usecase.myProfile.GetMyProfileDataUseCase
-import eu.tutorials.animelistapp.domain.usecase.myProfile.InsertMyProfileDataUseCase
-import eu.tutorials.animelistapp.domain.usecase.myProfile.anime.GetMyTopFiveAnimesUseCase
-import eu.tutorials.animelistapp.domain.usecase.myProfile.manga.GetMyTopFiveMangasUseCase
+import eu.tutorials.animelistapp.domain.myProfile.useCase.GetMyProfileDataUseCase
+import eu.tutorials.animelistapp.domain.myProfile.useCase.InsertMyProfileDataUseCase
+import eu.tutorials.animelistapp.domain.myProfile.useCase.anime.GetMyTopFiveAnimesUseCase
+import eu.tutorials.animelistapp.domain.myProfile.useCase.manga.GetMyTopFiveMangasUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
