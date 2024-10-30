@@ -266,12 +266,20 @@ class AnimeDetailsViewModel @Inject constructor(
     }
 
     fun updateWatchedEpisodes(newEpisodeCount: Int?) {
-        newEpisodeCount?.let {
-            _uiState.update { state ->
-                state.copy(
-                    animeUserStatus = state.animeUserStatus?.copy(currentEpisode = newEpisodeCount)
-                )
+        newEpisodeCount?.let { episodeCount ->
+
+            _uiState.value.animeUserStatus?.episode?.let {
+                if (episodeCount < 0 || episodeCount > it) {
+                    return
+                }
+                _uiState.update { state ->
+                    state.copy(
+                        animeUserStatus = state.animeUserStatus?.copy(currentEpisode = newEpisodeCount)
+                    )
+                }
             }
+
+
 
             viewModelScope.launch {
                 insertMyFavouriteAnimeUseCase.invoke(_uiState.value.animeUserStatus!!)
