@@ -16,8 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import eu.tutorials.animelistapp.presentation.ui.BottomNavigationBar
 import eu.tutorials.animelistapp.presentation.ui.LoadingScreen
-import eu.tutorials.animelistapp.presentation.ui.mainScreen.composables.AnimeList
-import eu.tutorials.animelistapp.presentation.ui.mainScreen.composables.MangaList
+import eu.tutorials.animelistapp.presentation.ui.mainScreen.components.AnimeList
+import eu.tutorials.animelistapp.presentation.ui.mainScreen.components.MangaList
 import eu.tutorials.animelistapp.constants.enums.Anime.AnimeAgeRating
 import eu.tutorials.animelistapp.constants.enums.Anime.AnimeType
 import androidx.hilt.navigation.compose.hiltViewModel

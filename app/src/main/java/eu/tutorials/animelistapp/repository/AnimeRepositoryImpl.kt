@@ -2,7 +2,6 @@ package eu.tutorials.animelistapp.repository
 
 import eu.tutorials.animelistapp.repository.remoteRepository.datasource.anime.AnimeRemoteDataSource
 import eu.tutorials.animelistapp.repository.localRepository.database.myFavouriteList.anime.MyFavouriteAnimeEntity
-import eu.tutorials.animelistapp.repository.remoteRepository.datasource.anime.AnimeRepository
 import eu.tutorials.animelistapp.repository.localRepository.datasource.anime.AnimeLocalDataSource
 import eu.tutorials.animelistapp.repository.remoteRepository.model.anime.AnimeDto
 import eu.tutorials.animelistapp.repository.remoteRepository.model.details.RecommendationDto
@@ -11,7 +10,7 @@ import eu.tutorials.animelistapp.repository.remoteRepository.model.details.anime
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-class AnimeRepositoryImpl @Inject constructor(
+open class AnimeRepositoryImpl @Inject constructor(
     private val animeRemoteDataSource: AnimeRemoteDataSource,
     private val animeLocalDataSource: AnimeLocalDataSource,
 ) : AnimeRepository {
@@ -29,7 +28,7 @@ class AnimeRepositoryImpl @Inject constructor(
         return animes
     }
 
-    suspend fun saveAnimes(animes: List<AnimeDto>) {
+    override suspend fun saveAnimes(animes: List<AnimeDto>) {
         animeLocalDataSource.saveAnimes(animes)
     }
 
@@ -42,7 +41,7 @@ class AnimeRepositoryImpl @Inject constructor(
         return animeDetails
     }
 
-    suspend fun saveAnimeById(animeDetailsDto: AnimeDetailsDto) {
+    override suspend fun saveAnimeById(animeDetailsDto: AnimeDetailsDto) {
         animeLocalDataSource.saveAnimeDetails(animeDetails = animeDetailsDto)
     }
 
@@ -51,7 +50,8 @@ class AnimeRepositoryImpl @Inject constructor(
             animeRemoteDataSource.getAnimeCharacters(animeId)
                 .also { characters ->
                     characters.forEach { it.animeId = animeId }
-                    saveCharacters(characters) }
+                    saveCharacters(characters)
+                }
         } catch (e: UnknownHostException) {
             animeLocalDataSource.getAllCharacterByAnimeId(animeId)
         }
@@ -59,13 +59,13 @@ class AnimeRepositoryImpl @Inject constructor(
         return animeCharacters
     }
 
-    suspend fun saveCharacters(characters: List<AnimeCharactersDto>) {
+    override suspend fun saveCharacters(characters: List<AnimeCharactersDto>) {
         animeLocalDataSource.saveAnimeCharacters(characters = characters)
     }
 
     override suspend fun getRecommendations(animeId: Int): List<RecommendationDto> {
         val animeRecommendations = try {
-            animeRemoteDataSource.getAnimeRecommendations(animeId).also {recommendations ->
+            animeRemoteDataSource.getAnimeRecommendations(animeId).also { recommendations ->
                 recommendations.forEach { it.id = animeId }
                 saveRecommendations(recommendations)
             }
@@ -75,7 +75,7 @@ class AnimeRepositoryImpl @Inject constructor(
         return animeRecommendations
     }
 
-    suspend fun saveRecommendations(recommendations: List<RecommendationDto>) {
+    override suspend fun saveRecommendations(recommendations: List<RecommendationDto>) {
         animeLocalDataSource.saveAnimeRecommendations(recommendations)
     }
 
@@ -88,14 +88,17 @@ class AnimeRepositoryImpl @Inject constructor(
         return animeSearch
     }
 
-    suspend fun getMyFavouriteAnimeList(): List<MyFavouriteAnimeEntity> =
+    override suspend fun getMyFavouriteAnimeList(): List<MyFavouriteAnimeEntity> =
         animeLocalDataSource.getMyFavouriteAnimeList()
 
-    suspend fun insertMyFavouriteAnime(myFavouriteAnimeEntity: MyFavouriteAnimeEntity) =
+    override suspend fun getMyFavouriteAnimeListWithLimit(limit: Int): List<MyFavouriteAnimeEntity> =
+        animeLocalDataSource.getMyFavouriteAnimeListWithLimit(limit)
+
+    override suspend fun insertMyFavouriteAnime(myFavouriteAnimeEntity: MyFavouriteAnimeEntity) =
         animeLocalDataSource.insertMyFavouriteAnime(myFavouriteAnimeEntity)
 
 
-    suspend fun getMyFavouriteAnimeStatus(id: Int) =
+    override suspend fun getMyFavouriteAnimeStatus(id: Int) =
         animeLocalDataSource.getMyListAnimeById(id)
 
 }

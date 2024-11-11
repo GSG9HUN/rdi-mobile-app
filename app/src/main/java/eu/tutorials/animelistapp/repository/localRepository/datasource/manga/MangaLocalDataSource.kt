@@ -42,6 +42,9 @@ class MangaLocalDataSource @Inject constructor(
 
     suspend fun getMyFavouriteManga() = myFavouriteMangaDao.getMyFavouriteMangaList()
 
+    suspend fun getMyFavouriteMangaWithLimit(limit: Int) =
+        myFavouriteMangaDao.getMyFavouriteMangaListWithLimit(limit)
+
     suspend fun insertMyFavouriteManga(myFavouriteMangaEntity: MyFavouriteMangaEntity) =
         myFavouriteMangaDao.insertToMyFavouriteList(myFavouriteMangaEntity = myFavouriteMangaEntity)
 

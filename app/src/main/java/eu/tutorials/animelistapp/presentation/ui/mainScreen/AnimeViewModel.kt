@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.tutorials.animelistapp.constants.Resource
 import eu.tutorials.animelistapp.domain.model.Anime
-import eu.tutorials.animelistapp.domain.usecase.anime.GetTopAnimesUseCase
+import eu.tutorials.animelistapp.domain.anime.useCase.GetTopAnimesUseCase
 import eu.tutorials.animelistapp.constants.enums.Anime.AnimeAgeRating
 import eu.tutorials.animelistapp.constants.enums.Anime.AnimeFilter
 import eu.tutorials.animelistapp.constants.enums.Anime.AnimeType

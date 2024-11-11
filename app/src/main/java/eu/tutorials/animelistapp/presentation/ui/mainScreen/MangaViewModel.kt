@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.tutorials.animelistapp.constants.Resource
-import eu.tutorials.animelistapp.domain.usecase.manga.GetTopMangasUseCase
+import eu.tutorials.animelistapp.domain.manga.useCase.GetTopMangasUseCase
 import eu.tutorials.animelistapp.constants.enums.Manga.MangaFilter
 import eu.tutorials.animelistapp.constants.enums.Manga.MangaType
 import eu.tutorials.animelistapp.domain.model.Manga

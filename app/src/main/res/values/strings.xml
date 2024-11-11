@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">AnimeListApp</string>
+    <string name="enter_your_notes_here">Enter your notes here</string>
+    <string name="top_5_favorite_anime_manga">Top 5 Favorite Anime/Manga</string>
+    <string name="back">Back</string>
+    <string name="avatar">avatar</string>
+    <string name="receive_notifications">Receive notifications</string>
+    <string name="enable_darkmode">Enable darkmode</string>
+    <string name="select_an_option">Select an Option</string>
+    <string name="save">Save</string>
+    <string name="title">Title</string>
+    <string name="episodes_chapters">Episodes/Chapters</string>
+    <string name="select_category">Select category</string>
+    <string name="gender">Gender:</string>
+    <string name="anime_manga_img">anime_manga_img</string>
+    <string-array name="category_options">
+        <item>Anime</item>
+        <item>Manga</item>
+    </string-array>
+    <string-array name="genders">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
 </resources>

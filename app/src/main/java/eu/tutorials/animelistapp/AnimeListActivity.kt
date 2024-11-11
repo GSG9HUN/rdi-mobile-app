@@ -1,0 +1,52 @@
+package eu.tutorials.animelistapp
+
+import android.app.Application
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
+import eu.tutorials.animelistapp.constants.MAIN_PAGE
+import eu.tutorials.animelistapp.presentation.ui.Navigation
+import eu.tutorials.animelistapp.presentation.ui.Screen
+import eu.tutorials.animelistapp.ui.theme.AnimeListAppTheme
+
+@HiltAndroidApp
+class MyApplication : Application()
+
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
+    private lateinit var networkMonitor: NetworkMonitor
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        networkMonitor = NetworkMonitor(applicationContext)
+
+        setContent {
+            val context = this.applicationContext
+            var destination = intent.extras?.getString("destination")
+
+            if (destination == MAIN_PAGE) {
+                destination = Screen.BottomScreen.Home.bottomRoute
+            }
+
+            AnimeListAppTheme {
+                val controller = rememberNavController()
+                Navigation(
+                    navController = controller, context = context, startDestination = destination
+                )
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        networkMonitor.startMonitoring()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        networkMonitor.stopMonitoring()
+    }
+}

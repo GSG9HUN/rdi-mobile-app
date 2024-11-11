@@ -8,11 +8,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.tutorials.animelistapp.constants.Resource
 import eu.tutorials.animelistapp.constants.enums.myFavouriteList.MyFavouriteAnimeStatus
 import eu.tutorials.animelistapp.domain.model.myFavouriteList.anime.MyFavouriteAnime
-import eu.tutorials.animelistapp.domain.usecase.details.animeDetails.GetAnimeCharactersUseCase
-import eu.tutorials.animelistapp.domain.usecase.details.animeDetails.GetAnimeDetailsUseCase
-import eu.tutorials.animelistapp.domain.usecase.details.animeDetails.GetAnimeRecommendationsUseCase
-import eu.tutorials.animelistapp.domain.usecase.myFavouriteList.anime.GetMyFavouriteAnimeStatusUseCase
-import eu.tutorials.animelistapp.domain.usecase.myFavouriteList.anime.InsertMyFavouriteAnimeUseCase
+import eu.tutorials.animelistapp.domain.animeDetails.useCase.GetAnimeCharactersUseCase
+import eu.tutorials.animelistapp.domain.animeDetails.useCase.GetAnimeDetailsUseCase
+import eu.tutorials.animelistapp.domain.animeDetails.useCase.GetAnimeRecommendationsUseCase
+import eu.tutorials.animelistapp.domain.myAnimeFavouriteList.useCase.GetMyFavouriteAnimeStatusUseCase
+import eu.tutorials.animelistapp.domain.myAnimeFavouriteList.useCase.InsertMyFavouriteAnimeUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -266,12 +266,20 @@ class AnimeDetailsViewModel @Inject constructor(
     }
 
     fun updateWatchedEpisodes(newEpisodeCount: Int?) {
-        newEpisodeCount?.let {
-            _uiState.update { state ->
-                state.copy(
-                    animeUserStatus = state.animeUserStatus?.copy(currentEpisode = newEpisodeCount)
-                )
+        newEpisodeCount?.let { episodeCount ->
+
+            _uiState.value.animeUserStatus?.episode?.let {
+                if (episodeCount < 0 || episodeCount > it) {
+                    return
+                }
+                _uiState.update { state ->
+                    state.copy(
+                        animeUserStatus = state.animeUserStatus?.copy(currentEpisode = newEpisodeCount)
+                    )
+                }
             }
+
+
 
             viewModelScope.launch {
                 insertMyFavouriteAnimeUseCase.invoke(_uiState.value.animeUserStatus!!)

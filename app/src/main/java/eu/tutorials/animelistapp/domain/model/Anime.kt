@@ -1,6 +1,5 @@
 package eu.tutorials.animelistapp.domain.model
 
-
 data class Anime(
     val id: Int,
     val title: String,

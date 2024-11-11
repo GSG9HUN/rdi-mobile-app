@@ -31,7 +31,7 @@ fun AnimeHeader(animeDetails: AnimeDetails) {
             .height(200.dp)
     ) {
         Image(
-            painter = rememberAsyncImagePainter(animeDetails.image),
+            painter = rememberAsyncImagePainter(animeDetails.image.imageUrl),
             contentDescription = animeDetails.title,
             modifier = Modifier
                 .fillMaxHeight()

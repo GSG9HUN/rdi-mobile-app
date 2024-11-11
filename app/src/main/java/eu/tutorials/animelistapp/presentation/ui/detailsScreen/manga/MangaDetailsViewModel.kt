@@ -8,11 +8,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.tutorials.animelistapp.constants.Resource
 import eu.tutorials.animelistapp.constants.enums.myFavouriteList.MyFavouriteMangaStatus
 import eu.tutorials.animelistapp.domain.model.myFavouriteList.manga.MyFavouriteManga
-import eu.tutorials.animelistapp.domain.usecase.details.mangaDetails.GetMangaCharactersUseCase
-import eu.tutorials.animelistapp.domain.usecase.details.mangaDetails.GetMangaDetailsUseCase
-import eu.tutorials.animelistapp.domain.usecase.details.mangaDetails.GetMangaRecommendationsUseCase
-import eu.tutorials.animelistapp.domain.usecase.myFavouriteFavourite.manga.GetMyFavouriteMangaStatusUseCase
-import eu.tutorials.animelistapp.domain.usecase.myFavouriteList.manga.InsertMyFavouriteMangaUseCase
+import eu.tutorials.animelistapp.domain.mangaDetails.useCase.GetMangaCharactersUseCase
+import eu.tutorials.animelistapp.domain.mangaDetails.useCase.GetMangaDetailsUseCase
+import eu.tutorials.animelistapp.domain.mangaDetails.useCase.GetMangaRecommendationsUseCase
+import eu.tutorials.animelistapp.domain.myMangaFavouriteList.useCase.GetMyFavouriteMangaStatusUseCase
+import eu.tutorials.animelistapp.domain.myMangaFavouriteList.useCase.InsertMyFavouriteMangaUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
